@@ -1,0 +1,87 @@
+﻿.head
+{
+	width: 100%;
+	height: 60px;
+	background-color: #1d7df4;
+}
+
+.sidebar
+{
+	height:100%;
+	width: 200px;
+	background-color: #0f0;
+	position: absolute;
+}
+
+.list
+{
+	width: 100%;
+	height:700px;
+	background-color: #00f;
+	margin-left: 200px;
+	position: relative;
+}
+
+.headbar li
+{
+	float: left;
+	list-style-type: none;
+}
+
+.headimg img
+{
+	float: right;
+	width: 40px;
+	border-radius: 50%;
+	margin: 10px;
+}
+
+.headinfo
+{
+	display: none;
+}
+
+.headinfo ul li
+{
+	list-style-type: none;
+}
+
+.sidebar ul li
+{
+	list-style-type: none;
+	font: 15px Microsoft YaHei;
+	height: 30px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
