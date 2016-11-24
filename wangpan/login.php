@@ -11,7 +11,7 @@
  <h1 class="login-head">
  <div><img src="include/img/head.png"></div>
  </h1>
- <span class="errorprompt" id="errorprompt"></span>
+ <span id="errorprompt"></span>
 	<p class="login-main">
 	<input class="inputbox" type="text" id="username" placeholder="邮箱或手机号">
 	</p>
@@ -28,6 +28,5 @@
   </div>
  </body>
   <script src="include/js/jquery-3.1.0.js"></script>
-  <script src="include/js/has1.js"></script>
   <script src="include/js/login.js"></script>
 </html>

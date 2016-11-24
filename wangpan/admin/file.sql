@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50623
 File Encoding         : 65001
 
-Date: 2016-11-16 22:34:44
+Date: 2016-11-25 00:48:07
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -22,8 +22,16 @@ DROP TABLE IF EXISTS `file`;
 CREATE TABLE `file` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `hash` varchar(40) NOT NULL,
-  `path` varchar(255) NOT NULL,
   `type` varchar(10) NOT NULL,
   `size` int(11) NOT NULL,
-  PRIMARY KEY (`id`,`hash`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  PRIMARY KEY (`id`,`hash`),
+  KEY `id` (`id`),
+  KEY `type` (`type`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of file
+-- ----------------------------
+INSERT INTO `file` VALUES ('1', '0', 'disk', '0');
+INSERT INTO `file` VALUES ('2', '0', 'driver', '0');
+INSERT INTO `file` VALUES ('3', '0', 'folder', '0');

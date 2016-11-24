@@ -14,10 +14,10 @@ $(document).ready(function(){
 			}
     
 	},"text");
-})
+});
 $(".checkimg").attr('src','include/lib/checkcode.php');
 $("#checktxt").val("");
 $(".checkimg").click(function(){
 	$(this).attr('src','include/lib/checkcode.php');
-})
-})
+});
+});

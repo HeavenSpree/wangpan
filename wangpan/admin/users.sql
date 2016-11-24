@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50623
 File Encoding         : 65001
 
-Date: 2016-11-16 22:34:59
+Date: 2016-11-25 02:34:24
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -26,5 +26,8 @@ CREATE TABLE `users` (
   `nickname` varchar(64) NOT NULL,
   `phone` varchar(11) DEFAULT NULL,
   `registered` datetime NOT NULL,
-  PRIMARY KEY (`ID`,`email`,`nickname`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+  PRIMARY KEY (`ID`,`email`,`nickname`),
+  UNIQUE KEY `ID` (`ID`) USING BTREE,
+  UNIQUE KEY `email` (`email`) USING HASH,
+  UNIQUE KEY `nikename` (`nickname`) USING HASH
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
