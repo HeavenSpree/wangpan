@@ -3,10 +3,10 @@ $dir = dirname(__FILE__);
 require_once $dir."/../../config.php";
 class sqltool
 {
-	private $conn;		//Êý¾Ý¿âÁ¬½Ó
-	public $selecttime;		//²éÑ¯Ê±¼ä£¨×°±ÆÓÃµÄ¹¦ÄÜ£©
+	private $conn;		//æ•°æ®åº“è¿žæŽ¥
+	public $selecttime;		//æŸ¥è¯¢æ—¶é—´ï¼ˆè£…é€¼ç”¨çš„åŠŸèƒ½ï¼‰
 	
-	//¹¹Ôìº¯Êý£¬´´½¨Ò»¸öÊý¾Ý¿âÁ¬½Ó
+	//æž„é€ å‡½æ•°ï¼Œåˆ›å»ºä¸€ä¸ªæ•°æ®åº“è¿žæŽ¥
 	public function __construct($dbname=DB_NAME,$dbhost=DB_HOST,$dbuser=DB_USER,$dbpassword=DB_PASSWORD,$dbport=DB_PORT)
 	{
 		$starttime=microtime(1);
@@ -16,10 +16,10 @@ class sqltool
 			die('Connect Error('.$this->conn->connect_errno.')'.$this->conn->connect_error);
 		}
 		$this->selecttime=microtime(1)-$starttime;
-		$this->setchar(DB_CHARSET);//Ä¬ÈÏÉèÖÃutf-8
+		$this->setchar(DB_CHARSET);//é»˜è®¤è®¾ç½®utf-8
 	}
 	
-	//ÉèÖÃÊý¾Ý¿âµÄ×Ö·û±àÂë
+	//è®¾ç½®æ•°æ®åº“çš„å­—ç¬¦ç¼–ç 
 	public function setchar($char)
     {
 		$starttime=microtime(1);
@@ -30,7 +30,7 @@ class sqltool
 		$this->selecttime=microtime(1)-$starttime;
     }
 	
-	//´«ËÍÒ»¸ö²éÑ¯Óï¾ä£¬·µ»Ø²éÑ¯µÄ½á¹û¼¯
+	//ä¼ é€ä¸€ä¸ªæŸ¥è¯¢è¯­å¥ï¼Œè¿”å›žæŸ¥è¯¢çš„ç»“æžœé›†
 	public function executedql($sql)
 	{
 		$starttime=microtime(1);
@@ -39,7 +39,7 @@ class sqltool
 		return $res;
 	}
 	
-	//´«ËÍÒ»¸öÊý¾Ý²Ù×ÝÓï¾ä£¬·µ»Ø±»ÐÞ¸ÄµÄÌõÊý£¬-1ÎªÊ§°Ü
+	//ä¼ é€ä¸€ä¸ªæ•°æ®æ“çºµè¯­å¥ï¼Œè¿”å›žè¢«ä¿®æ”¹çš„æ¡æ•°ï¼Œ-1ä¸ºå¤±è´¥
 	public function executedml($sql)
 	{
 		$starttime=microtime(1);
@@ -56,7 +56,7 @@ class sqltool
 		
 	}
 	
-	//²éÑ¯Êý¾Ý¿âÊäÈë±íÃû£¬ÁÐÃû£¬º¯ÊýµÈ£¬·µ»ØÒ»¸ö½á¹ûÊý×é
+	//æŸ¥è¯¢æ•°æ®åº“è¾“å…¥è¡¨åï¼Œåˆ—åï¼Œå‡½æ•°ç­‰ï¼Œè¿”å›žä¸€ä¸ªç»“æžœæ•°ç»„
 	public function select($table, $where = '1', $field = "*", $fun = '')
     {
 		$starttime=microtime(1);
@@ -89,7 +89,7 @@ class sqltool
         return $rarr;
 	}
 	
-	//¸üÐÂÊý¾Ý¿â£¬ÊäÈë±íÃû¸üÐÂµÄÖµ£¬·µ»ØÐÞ¸ÄµÄÌõÊý£¬-1ÎªÊ§°Ü
+	//æ›´æ–°æ•°æ®åº“ï¼Œè¾“å…¥è¡¨åæ›´æ–°çš„å€¼ï¼Œè¿”å›žä¿®æ”¹çš„æ¡æ•°ï¼Œ-1ä¸ºå¤±è´¥
 	public function update($table, $where, $data)
     {
 		$starttime=microtime(1);
@@ -125,7 +125,7 @@ class sqltool
 		}		
     }
 	
-	//²åÈëÒ»Ìõ¼ÇÂ¼£¬ÊäÈë±íÃû£¬Òª²åÈëµÄÊý¾Ý£¬·µ»Ø²åÈë¼ÇÂ¼µÄid£¬-1ÎªÊ§°Ü
+	//æ’å…¥ä¸€æ¡è®°å½•ï¼Œè¾“å…¥è¡¨åï¼Œè¦æ’å…¥çš„æ•°æ®ï¼Œè¿”å›žæ’å…¥è®°å½•çš„idï¼Œ-1ä¸ºå¤±è´¥
 	public function insert($table,$data)
     {
 		$starttime=microtime(1);
@@ -133,25 +133,25 @@ class sqltool
         $idata = '';
         if (is_array($data) && array_keys($data) != range(0, count($data) - 1))
 		{
-            //¹ØÁªÊý×é
+            //å…³è”æ•°ç»„
 			while (list($k, $v) = each($data))
 			{
                 if (empty($field))
-					{
-						$field = "$k";
-						$idata = "'$v'";
-					} 
-					else
-					{
-						$field .= ",$k";
-						$idata .= ",'$v'";
-					}
+				{
+					$field = "$k";
+					$idata = "'$v'";
+				} 
+				else
+				{
+					$field .= ",$k";
+					$idata .= ",'$v'";
 				}
-				$sqlStr = "insert into $table($field) values ($idata)";
+			}
+			$sqlStr = "insert into $table($field) values ($idata)";
 		}
 		else
 		{
-            //·Ç¹ØÁªÊý×é »ò×Ö·û´®
+            //éžå…³è”æ•°ç»„ æˆ–å­—ç¬¦ä¸²
             if (is_array($data)) 
 			{
                 while (list($k, $v) = each($data)) 
@@ -169,7 +169,7 @@ class sqltool
             } 
 			else 
 			{
-                //Îª×Ö·û´®
+                //ä¸ºå­—ç¬¦ä¸²
                 $idata = $data;
             }
             $sqlStr = "insert into $table values ($idata)";
@@ -180,10 +180,13 @@ class sqltool
         {
             return $this->conn->insert_id;
         }
-        return 0;
+		else
+		{
+			return -1;
+		}
     }
 	
-	//É¾³ý¼ÇÂ¼£¬ÊäÈë±íÃû£¬ÒªÉ¾³ýµÄ¼ÇÂ¼Ìõ¼þ£¬·µ»ØÉ¾³ýµÄÌõÊý£¬-1ÎªÊ§°Ü
+	//åˆ é™¤è®°å½•ï¼Œè¾“å…¥è¡¨åï¼Œè¦åˆ é™¤çš„è®°å½•æ¡ä»¶ï¼Œè¿”å›žåˆ é™¤çš„æ¡æ•°ï¼Œ-1ä¸ºå¤±è´¥
     public function delete($table, $where)
     {
 		$starttime=microtime(1);
@@ -200,7 +203,7 @@ class sqltool
 		}		
     }
 	
-	//²éÑ¯Êý¾Ý¿âÏÖÓÐ±í£¬·µ»ØÒ»¸öÊý×é
+	//æŸ¥è¯¢æ•°æ®åº“çŽ°æœ‰è¡¨ï¼Œè¿”å›žä¸€ä¸ªæ•°ç»„
 	public function showtables()
 	{
 		$starttime=microtime(1);
@@ -216,25 +219,25 @@ class sqltool
         return $rarr;
 	}
 
-	//¿ªÊ¼Ò»¸öÊÂÎñ
+	//å¼€å§‹ä¸€ä¸ªäº‹åŠ¡
 	public function begin()
 	{
 		$this->conn->autocommit(FALSE);
 	}
 	
-	//Ìá½»Ò»¸öÊÂÎñ
+	//æäº¤ä¸€ä¸ªäº‹åŠ¡
 	public function commit()
 	{
 		return $this->conn->commit();
 	}
 	
-	//»ØÍËµ±Ç°ÊÂÎñ
+	//å›žé€€å½“å‰äº‹åŠ¡
 	public function rollback()
 	{
 		return $this->conn->rollback();
 	}
 	
-	//¹Ø±Õµ±Ç°Á¬½Ó
+	//å…³é—­å½“å‰è¿žæŽ¥
     public function close()
     {
 		return $this->conn->close();

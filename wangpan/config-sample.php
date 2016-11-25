@@ -1,27 +1,30 @@
 <?php
-//MySQLÖ÷»ú
+//MySQLä¸»æœº
 define('DB_HOST', 'localhost');
 
-//MySQLÖ÷»ú¶Ë¿Ú
+//MySQLä¸»æœºç«¯å£
 define('DB_PORT',3306);
 
-//MySQLÊý¾Ý¿âÓÃ»§Ãû
+//MySQLæ•°æ®åº“ç”¨æˆ·å
 define('DB_USER', 'username');
 
-//MySQLÊý¾Ý¿âÃÜÂë
+//MySQLæ•°æ®åº“å¯†ç 
 define('DB_PASSWORD', 'password');
 
-//Êý¾Ý¿âµÄÃû³Æ
+//æ•°æ®åº“çš„åç§°
 define('DB_NAME', 'database_name');
 
-//´´½¨±íÊ±Ä¬ÈÏµÄ±àÂë
+//åˆ›å»ºè¡¨æ—¶é»˜è®¤çš„ç¼–ç 
 define('DB_CHARSET', 'utf8');
 
-//Êý¾Ý¿âÅÅÐò¹æÔò
+//æ•°æ®åº“æŽ’åºè§„åˆ™
 define('DB_COLLATE', '');
 
-//Êý¾Ý¿â±íÇ°×º
+//æ•°æ®åº“è¡¨å‰ç¼€
 $table_prefix  = '';
 
-//Éí·ÝÈÏÖ¤ÑÎ
+//ä¸Šä¼ æ–‡ä»¶çš„ä¿å­˜è·¯å¾„
+$filedir=dirname(__FILE__).'/upload_file/';
+
+//èº«ä»½è®¤è¯ç›
 define('KEY',        'put your unique phrase here');

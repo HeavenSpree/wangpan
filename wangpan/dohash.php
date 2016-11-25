@@ -20,38 +20,29 @@ else
 		$filename=$_POST['filename'];
 		if(!empty($row))
 		{
-			$bool=$sqltool->select('userfile',"userid=".$_SESSION['id']." AND filename='$filename' AND parentid=".$_SESSION['parentid']);
-			//if(!empty($bool))
-				//$filename.='('.count($bool).')';			//如果有重复文件这重命名文件
-			$sqltool->insert('userfile',"'',".$_SESSION['id'].",".$row[0]['id'].",'".$filename."','".$row[0]['type']."',".$_SESSION['parentid'].",1,0");
-			$sqltool->close();
-			echo '1';
+			if($_SESSION['usedsize']+$row[0]['size']<$_SESSION['totalsize'])
+			{
+				$userid=$_SESSION['id'];
+				//$existrow=$sqltool->select('userfile',"userid=$userid AND filename='$filename' AND parentid=".$_SESSION['parentid']);
+				//if(!empty($existrow))
+					//$filename.=' - 副本';			//如果有重复文件这重命名文件
+				$successrow=$sqltool->insert('userfile',"'',$userid,".$row[0]['id'].",'$filename','".$row[0]['type']."',".$_SESSION['parentid'].",1,0");
+				if($successrow!=-1)
+				{
+					$sqltool->update('users',"id=$userid",'usedsize='.($_SESSION['usedsize']+$row[0]['size']));
+					echo '1';
+				}
+			}
+			else
+			{
+				echo '上传失败，文件超出了总大小。';
+			}
 		}
 		else
 		{
 			echo '0';
 		}
+		$sqltool->close();
 	}
 }
 ?>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

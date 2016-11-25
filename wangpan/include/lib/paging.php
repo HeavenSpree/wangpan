@@ -6,7 +6,7 @@ class paging
 	private $pagenow=1;
 	private $pages=0;
 	private $rowcount=0;
-	private $pagesize=50;
+	private $pagesize=10;
 	private $table;
 	
 	public function __construct($table,$pagesize=10)
@@ -240,15 +240,3 @@ class paging
 	}
 }
 ?>
-
-
-
-
-
-
-
-
-
-
-
-

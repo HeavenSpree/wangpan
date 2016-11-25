@@ -21,7 +21,6 @@ if(!empty($_COOKIE["id"]))
 			header("location:main.php");
 		}
 	}
-	
 }
 require 'login.php';
 

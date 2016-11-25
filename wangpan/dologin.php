@@ -34,7 +34,7 @@ else
 				{
 					$pw=sha1($_POST['password']);			//密码
 					$sqltool=new sqltool;
-					$row=$sqltool->select('users',"email='$email' OR phone='$email'",'id,email,password,nickname');
+					$row=$sqltool->select('users',"email='$email' OR phone='$email'",'id,email,password,nickname,totalsize,usedsize');
 					$sqltool->close();
 					if(!empty($row))
 					{
@@ -44,6 +44,8 @@ else
 							$_SESSION['id']=$id;
 							$_SESSION['email']=$row[0]['email'];
 							$_SESSION['nickname']=$row[0]['nickname'];
+							$_SESSION['totalsize']=$row[0]['totalsize'];
+							$_SESSION['usedsize']=$row[0]['usedsize'];
 							if(!empty($_POST['dxk']))
 							{
 								$time=time();
