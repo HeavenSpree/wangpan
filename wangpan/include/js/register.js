@@ -1,18 +1,20 @@
 $(document).ready(function(){
-	$("#loginbutton").click(function(){
-		$.post("dologin.php",{hide:"4",email:$("#email").val(),password:$("#password").val(),checkcode:$("#checktxt").val(),dxk:$("#dxk:checked").val()},
+	$("#registerbuttn").click(function(){
+		$.post("doregister.php",{hide:"4",email:$("#email").val(),password:$("#password").val(),checkcode:$("#checktxt").val()},
 		function(data){
-			if(data=="0")
+			if(data=='0')
 			{
-				window.location.href="main.php";
+				window.location.href="index.php";
 			}
-			else if(data=="1")
+			else if(data=='1')
 			{
-				$("#errorprompt").html("用户名或密码错误");
+				$("#errorprompt").html("邮箱已被注册请直接登录。");
 				$("#checkimg").attr('src','include/lib/checkcode.php');
 			}
 			else
+			{
 				$("#errorprompt").html(data);
+			}
 		},"text");
 	});
 	$("#checkimg").attr('src','include/lib/checkcode.php');
@@ -20,4 +22,4 @@ $(document).ready(function(){
 	$("#checkimg").click(function(){
 		$(this).attr('src','include/lib/checkcode.php');
 	});
-});
+})

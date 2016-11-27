@@ -68,7 +68,7 @@ form
 	float: left;
 }
 
-.checkimg
+#checkimg
 {
 	height: 40px;
 	float: left;
@@ -92,7 +92,7 @@ form
 	margin-top: 13px;
 }
 
-.loginbutton
+#loginbutton
 {
 	width: 140px;
 	height: 34px;
@@ -104,7 +104,7 @@ form
 	margin-left: 60px;
 }
 
-.loginbutton:hover
+#loginbutton:hover
 {
 	background-color: #00bee7;
 }

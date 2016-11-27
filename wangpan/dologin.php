@@ -5,7 +5,7 @@ header("content-type: text/html;charset=utf-8");
 session_start();
 
 if($_POST['hide']!='4')
-	header("location:login.php");
+	header("location:index.php");
 else
 {
 	if(empty($_POST['checkcode']))
@@ -21,20 +21,20 @@ else
 		}
 		else
 		{
-			if(empty($_POST['username']))
+			if(empty($_POST['email']))
 			{
-				echo "请填写用户名";
+				echo "请填写邮箱";
 			}
 			else
 			{
-				$email=$_POST['username'];		//用户名
+				$email=$_POST['email'];		//用户名
 				if(empty($_POST['password']))
 					echo "请填写密码";
 				else
 				{
 					$pw=sha1($_POST['password']);			//密码
 					$sqltool=new sqltool;
-					$row=$sqltool->select('users',"email='$email' OR phone='$email'",'id,email,password,nickname,totalsize,usedsize');
+					$row=$sqltool->select('users',"email='$email' OR phone='$email'");
 					$sqltool->close();
 					if(!empty($row))
 					{
@@ -57,16 +57,16 @@ else
 								setcookie("time",$time,time()+864000);
 							}
 							//跳转到主页面
-							echo '1';
+							echo '0';
 						}
 						else
 						{
-							echo "密码错误";
+							echo "1";
 						}
 					}
 					else
 					{
-						echo "用户名不存在";
+						echo "1";
 					}
 				}
 			}

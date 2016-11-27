@@ -33,7 +33,6 @@ $(document).ready(function(){
 				   | ((val & 0xFF00) << 8)
 				   | ((val >> 8) & 0xFF00)
 				   | ((val >> 24) & 0xFF)) >>> 0;
-
 			}
 			function arrayBufferToWordArray(arrayBuffer) {
 				var fullWords = Math.floor(arrayBuffer.byteLength / 4);
@@ -83,8 +82,7 @@ $(document).ready(function(){
 				else
 				{
 					hash=c.finalize().toString();
-					hash1=hash.toUpperCase();
-					$.post("dohash.php",{hide:"4",hash:hash1,filename:file.name},
+					$.post("dohash.php",{hide:"4",hash:hash,filename:file.name},
 					function(data){
 						$("#pre").text(data);
 						if(data!="1")
@@ -92,8 +90,7 @@ $(document).ready(function(){
 							var filedata=new FormData();
 							$.each($("#upinput")[0].files,function(i,upfile){
 								filedata.append('hide',"4");
-								filedata.append('hash',hash1);
-								filedata.append('filename',file.name);
+								filedata.append('hash',hash);
 								filedata.append('upload_file',upfile);
 							});
 							$.ajax({
@@ -108,7 +105,6 @@ $(document).ready(function(){
 								}
 							});
 						}
-						
 					});
 				}
 			};

@@ -5,3 +5,8 @@
 	文件夹上传
 	文件历史版本
 	上传文件名相同
+	文件分享
+	
+enum state(normal,deleted,previous);
+enum share(no,yes);
+enum filetype(disk,driver,folder);

@@ -23,8 +23,8 @@ define('DB_COLLATE', '');
 //数据库表前缀
 $table_prefix  = '';
 
-//上传文件的保存路径
-$filedir=dirname(__FILE__).'/upload_file/';
+//新注册用户默认磁盘大小
+$totalsize=1073741824;
 
 //身份认证盐
 define('KEY',        '>+a|i5i>77xzz(S70.s+W@{*X,Holv(W36t OM7|,r@J>bc|?gPjA>ET[F;WFv0T');

@@ -7,7 +7,7 @@ if(empty($id=$_SESSION['id']))
 	header("location:index.php");
 }
 $sqltool=new sqltool();
-$row=$sqltool->select('userfile',"userid=$id AND filetype='driver'");
+$row=$sqltool->select('userfile',"userid=$id AND filetype=1");
 $_SESSION['parentid']=$row[0]['id'];
 ?>
 <!doctype html>
@@ -32,7 +32,12 @@ $_SESSION['parentid']=$row[0]['id'];
 </div>
 <div id="headinfo">
 <ul>
-<li>jiacw0522@126.com</li>
+<li>
+<?php
+$row=$sqltool->select('users',"id=$id");
+echo $row[0]['nickname'];
+?>
+</li>
 <li>个人资料</li>
 <li>退出</li>
 </ul>
@@ -82,11 +87,63 @@ $_SESSION['parentid']=$row[0]['id'];
 <ul>
 <pre id="pre">
 <?php
-$row=$sqltool->select('userfile','userid='.$id.' AND parentid='.$_SESSION['parentid']);
+$row=$sqltool->select('userfile','userid='.$id.' AND parentid='.$_SESSION['parentid']." AND state=0");
 print_r($row);
+foreach($row as $key => $value)
+{
+	?>
+	</pre>
+	<li class="">
+	<div></div>
+	<div>
+	<span></span>
+	<span><?php echo $value['filename'] ?></span>
+	<span>
+	<a href="<?php
+	$file=$sqltool->select('file','id='.$value['fileid']);
+	$hash=$file[0]['hash'];
+	$hashpath=chunk_split($hash,4,'/');
+	$hasharr=str_split($hashpath,5);
+	$path='upload_file/';
+	for($i=0;$i<9;$i++)
+	{
+		$path.=$hasharr[$i];
+	}
+	echo $path.$hash;
+	?>" download="<?php echo $value['filename'] ?>">下载</a>
+	</span>
+	<span></span>
+	</div>
+	<div>
+	<?php 
+	if(2!=$value['filetype'])
+	{
+		$filesize=$file[0]['size'];
+		if($filesize<1024)
+		{
+			echo $filesize.'B';
+		}
+		elseif($filesize<1048576)
+		{
+			echo round($filesize/1024).'K';
+		}
+		elseif($filesize<1073741824)
+		{
+			echo round($filesize/1048576,1).'M';
+		}
+		elseif($filesize<1099511627776)
+		{
+			echo round($filesize/1073741824,2).'G';
+		}
+	}
+	?>
+	</div>
+	<div><?php echo $value['modified']; ?></div>
+	</li>
+	<?php
+}
 $sqltool->close();
 ?>
-</pre>
 </ul>
 </div> 
 </div>

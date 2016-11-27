@@ -4,9 +4,7 @@ require_once $dir."/include/lib/sqltool.php";
 header("content-type: text/html;charset=utf-8");
 session_start();
 
-///$state=array(normal=>1,deleted=>2,illegal=>3,previous=>4);
-
-if($_POST['hide']!='4')
+if(empty($_POST['hide'])||$_POST['hide']!='4')
 	header("location:login.php");
 else
 {
@@ -21,6 +19,7 @@ else
 		{
 			if($hash==hash_file('sha1',$filetempname))
 			{
+				$filedir='./upload_file/';
 				$hashpath=chunk_split($hash,4,'/');
 				$hasharr=str_split($hashpath,5);
 				for($i=0;$i<9;$i++)
@@ -33,20 +32,22 @@ else
 				{
 					$filesize=$_FILES['upload_file']['size'];
 					$sqltool=new sqltool();
-					$fileid=$sqltool->insert('file',"'','$hash','".$_FILES['upload_file']['type']."',".$filesize);
+					$fileid=$sqltool->insert('file',"'','$hash',".$filesize);
 					if($fileid!=-1)
 					{
 						$filename=$_FILES['upload_file']['name'];
+						$filetype=3;
 						if($_SESSION['usedsize']+$filesize<$_SESSION['totalsize'])
 						{
 							$userid=$_SESSION['id'];
-							//$existrow=$sqltool->select('userfile',"userid=$userid AND filename='$filename' AND parentid=".$_SESSION['parentid']);
+							//$existrow=$sqltool->select('userfile',"userid=$userid AND parentid=".$_SESSION['parentid']." AND filename='$filename'");
 							//if(!empty($existrow))
 								//$filename.='('.count($existrow).')';			//如果有重复文件这重命名文件
-							$successrow=$sqltool->insert('userfile',"'',$userid,$fileid,'$filename','".$_FILES['upload_file']['type']."',".$_SESSION['parentid'].",1,0");
+							$successrow=$sqltool->insert('userfile',"'',$userid,".$_SESSION['parentid'].",$fileid,'$filename',$filetype,NOW(),0,0");
 							if($successrow!=-1)
 							{
-								$sqltool->update('users',"id=$userid",'usedsize='.($_SESSION['usedsize']+$filesize));
+								$_SESSION['usedsize']+=$filesize;
+								$sqltool->update('users',"id=$userid",'usedsize=usedsize+'.$filesize);
 								echo '1';
 							}
 						}
