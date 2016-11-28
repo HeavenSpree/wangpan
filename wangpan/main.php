@@ -17,6 +17,9 @@ $_SESSION['parentid']=$row[0]['id'];
 <title>云盘-全部文件</title>
 <link rel="stylesheet" type="text/css" href="include/css/common.css">
 <link rel="stylesheet" type="text/css" href="include/css/main.css">
+<script src="include/js/jquery-3.1.0.js"></script>
+<script src="include/js/sha1.js"></script>
+<script src="include/js/main.js"></script>
 </head>
 <body>
 <div id="head">
@@ -88,7 +91,6 @@ echo $row[0]['nickname'];
 <pre id="pre">
 <?php
 $row=$sqltool->select('userfile','userid='.$id.' AND parentid='.$_SESSION['parentid']." AND state=0");
-print_r($row);
 foreach($row as $key => $value)
 {
 	?>
@@ -99,18 +101,7 @@ foreach($row as $key => $value)
 	<span></span>
 	<span><?php echo $value['filename'] ?></span>
 	<span>
-	<a href="<?php
-	$file=$sqltool->select('file','id='.$value['fileid']);
-	$hash=$file[0]['hash'];
-	$hashpath=chunk_split($hash,4,'/');
-	$hasharr=str_split($hashpath,5);
-	$path='upload_file/';
-	for($i=0;$i<9;$i++)
-	{
-		$path.=$hasharr[$i];
-	}
-	echo $path.$hash;
-	?>" download="<?php echo $value['filename'] ?>">下载</a>
+	<a href="javascript:void(0);" id="download" onclick="downloadFile('include/lib/download.php?id=<?php echo $value['id']; ?>')" target="_blank" download="<?php echo $value['filename'] ?>">下载</a>
 	</span>
 	<span></span>
 	</div>
@@ -118,6 +109,7 @@ foreach($row as $key => $value)
 	<?php 
 	if(2!=$value['filetype'])
 	{
+		$file=$sqltool->select('file','id='.$value['fileid']);
 		$filesize=$file[0]['size'];
 		if($filesize<1024)
 		{
@@ -150,7 +142,4 @@ $sqltool->close();
 </div>
 </div>
 </body>
-<script src="include/js/jquery-3.1.0.js"></script>
-<script src="include/js/sha1.js"></script>
-<script src="include/js/main.js"></script>
 </html>

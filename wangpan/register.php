@@ -5,6 +5,8 @@
 <title>注册</title>
 <link rel="stylesheet" type="text/css" href="include/css/common.css">
 <link rel="stylesheet" type="text/css" href="include/css/register.css">
+<script src="include/js/jquery-3.1.0.js"></script>
+<script src="include/js/register.js"></script>
 </head>
 <body>
 <h1>注册</h1>
@@ -41,6 +43,4 @@ elseif($register=='phone')
 </p>
 </div>
 </body>
-<script src="include/js/jquery-3.1.0.js"></script>
-<script src="include/js/register.js"></script>
 </html>

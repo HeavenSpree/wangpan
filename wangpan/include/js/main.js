@@ -111,3 +111,6 @@ $(document).ready(function(){
 		}
 	});
 });
+function downloadFile(url){
+    $("body").append($("<iframe/>").attr({src:url,id:"downloadiframe"}));
+	$("#downloadiframe").css("display","none");

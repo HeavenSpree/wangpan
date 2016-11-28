@@ -63,7 +63,7 @@ class sqltool
         $rarr = array();
         if (empty($fun)) 
 		{
-            $sqlStr = "select $field from $table where $where";
+            $sqlStr = "SELECT $field FROM $table WHERE $where";
             $rt = $this->conn->query($sqlStr) or die($this->conn->error);
             while ($rt && $arr = $rt->fetch_assoc()) 
 			{
@@ -72,7 +72,7 @@ class sqltool
         } 
 		else 
 		{
-            $sqlStr = "select $fun($field) as rt from $table where $where";
+            $sqlStr = "SELECT $fun($field) AS rt FROM $table WHERE $where";
             $rt = $this->conn->query($sqlStr) or die($this->conn->error);
             if ($rt) 
 			{
@@ -112,7 +112,7 @@ class sqltool
 		{
             $ddata = $data;
         }
-        $sqlStr = "update $table set $ddata where $where";
+        $sqlStr = "UPDATE $table SET $ddata WHERE $where";
         $row=$this->conn->query($sqlStr) or die($this->conn->error);
 		$this->selecttime=microtime(1)-$starttime;
 		if($row)
@@ -147,7 +147,7 @@ class sqltool
 					$idata .= ",'$v'";
 				}
 			}
-			$sqlStr = "insert into $table($field) values ($idata)";
+			$sqlStr = "INSERT INTO $table($field) VALUES ($idata)";
 		}
 		else
 		{
@@ -172,7 +172,7 @@ class sqltool
                 //为字符串
                 $idata = $data;
             }
-            $sqlStr = "insert into $table values ($idata)";
+            $sqlStr = "INSERT INTO $table VALUES ($idata)";
         }
 		$row=$this->conn->query($sqlStr) or die($this->conn->error);
 		$this->selecttime=microtime(1)-$starttime;
@@ -190,7 +190,7 @@ class sqltool
     public function delete($table, $where)
     {
 		$starttime=microtime(1);
-        $sqlStr = "delete from $table where $where";
+        $sqlStr = "DELETE FROM $table WHERE $where";
 		$row=$this->conn->query($sqlStr) or die($this->conn->error);
 		$this->selecttime=microtime(1)-$starttime;
         if($row)
@@ -208,7 +208,7 @@ class sqltool
 	{
 		$starttime=microtime(1);
 		$rarr = array();
-		$sqlStr = "show tables";
+		$sqlStr = "SHOW TABLES";
 		$rt = $this->conn->query($sqlStr) or die($this->conn->error);
         while ($rt && $arr = $rt->fetch_assoc())
 		{

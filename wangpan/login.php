@@ -5,6 +5,8 @@
   <title>登录</title>
   <link rel="stylesheet" type="text/css" href="include/css/common.css">
   <link rel="stylesheet" type="text/css" href="include/css/login.css">
+  <script src="include/js/jquery-3.1.0.js"></script>
+  <script src="include/js/login.js"></script>
  </head>
  <body>
  <div class="login">
@@ -29,6 +31,4 @@
 	<span><a href="register.php">没有账号？赶快去注册一个。></a></span>
   </div>
  </body>
-  <script src="include/js/jquery-3.1.0.js"></script>
-  <script src="include/js/login.js"></script>
 </html>

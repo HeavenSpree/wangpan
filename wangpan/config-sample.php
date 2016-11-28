@@ -24,7 +24,7 @@ define('DB_COLLATE', '');
 $table_prefix  = '';
 
 //新注册用户默认磁盘大小
-$totalsize=1073741824;
+$totalsize=0;
 
 //身份认证盐
 define('KEY',        'put your unique phrase here');
