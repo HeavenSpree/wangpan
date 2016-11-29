@@ -21,19 +21,19 @@ function dowmload($filepath,$filename,$filesize)
 }
 if(!isset($_SERVER['HTTP_REFERER']))
 {
-	header("location:index.php");
+	header("location:../../index.php");
 }
 else
 {
 	if(7!=strpos($_SERVER['HTTP_REFERER'],$_SERVER['HTTP_HOST']))
 	{
-		header("location:index.php");
+		header("location:../../index.php");
 	}
 	else
 	{
 		if(empty($id=$_GET['id']))
 		{
-			header("location:index.php");
+			header("location:../../index.php");
 		}
 		else
 		{

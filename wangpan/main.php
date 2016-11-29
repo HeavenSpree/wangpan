@@ -24,10 +24,10 @@ $_SESSION['parentid']=$row[0]['id'];
 <body>
 <div id="head">
 <ul id="headbar">
-<li><img src="include/img/logo.png"></li>
-<li><a href=""><img src="include/img/headbar1.png"></a></li>
-<li><a href=""><img src="include/img/headbar2.png"></a></li>
-<li><a href=""><img src="include/img/headbar3.png"></a></li>
+<li><a href="main.php"><img src="include/img/logo.png"></a></li>
+<li><a id="wangpan" href=""></a></li>
+<li><a id="fenxiang" href=""></a></li>
+<li><a id="gongxiang" href=""></a></li>
 </ul>
 <div id="headbarr">
 <div id="headimg">
@@ -67,46 +67,62 @@ echo $row[0]['nickname'];
 </div>
 </div>
 </div>
-<div id="list">
+<div id="main">
 <div id="toolbar">
 <div id="toolbar-left">
 <div>
-<span class="item" id="upbutton"><input type="file" id="upinput">上传</span>
-<span class="item">新建文件夹</span>
-<span class="item">离线下载</span>
+<div class="item">
+<span id="tbupload"><input type="file" id="upinput"><a id="upbutton">上传</a></span>
+</div>
+<div class="item">
+<span id="tbnew">新建文件夹</span>
+</div>
+<div class="item">
+<span id="tbbt">离线下载</span>
+</div>
 </div>
 </div>
 <div id="toolbar-right">
-<div>
-<input type="text"> 
-<span id="searchimg"></span>
+<div id="search">
+<span id="searchimg"><img src="include/img/ico.png"></span>
+<input id="searchinput" type="text" placeholder="搜索文件">
 </div>
 </div>
 </div>
-<div>
-<div>crumb</div>
-<div>
-<div>
-<ul>
-<pre id="pre">
+<div id="crumb">
+<div id="crumbpath"><span id="path">全部文件</span></div>
+</div>
+<div id="filelist">
+<div class="" id="filelisthead">
+<div></div>
+<div class="column column-name">
+<span>文件名</span>
+</div>
+<div class="column column-size">大小</div>
+<div class="column column-time">修改时间</div>
+</div>
+<div id="filelistmain">
+<script>
+var height=$(document).height()-185;
+$("#filelistmain").css("height",height);
+</script>
+<ul id="list">
 <?php
 $row=$sqltool->select('userfile','userid='.$id.' AND parentid='.$_SESSION['parentid']." AND state=0");
 foreach($row as $key => $value)
 {
 	?>
-	</pre>
-	<li class="">
+	<li class="row">
 	<div></div>
-	<div>
+	<div class="column-name filename">
 	<span></span>
 	<span><?php echo $value['filename'] ?></span>
-	<span>
+	<span class="downliad">
 	<a href="javascript:void(0);" id="download" onclick="downloadFile('include/lib/download.php?id=<?php echo $value['id']; ?>')" target="_blank" download="<?php echo $value['filename'] ?>">下载</a>
 	</span>
 	<span></span>
 	</div>
-	<div>
-	<?php 
+	<div class="column-size filesize"><?php 
 	if(2!=$value['filetype'])
 	{
 		$file=$sqltool->select('file','id='.$value['fileid']);
@@ -128,17 +144,16 @@ foreach($row as $key => $value)
 			echo round($filesize/1073741824,2).'G';
 		}
 	}
-	?>
-	</div>
-	<div><?php echo $value['modified']; ?></div>
+	?></div>
+	<div class="column-time filetime"><?php echo $value['modified']; ?></div>
 	</li>
 	<?php
 }
 $sqltool->close();
 ?>
+<iframe id="downloadiframe"></iframe>
 </ul>
 </div> 
-</div>
 </div>
 </div>
 </body>

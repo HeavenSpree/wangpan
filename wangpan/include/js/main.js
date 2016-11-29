@@ -1,10 +1,10 @@
 $(document).ready(function(){
 	$("#headimg").click(function(){
-	$("#headinfo").css("display","block");
+		$("#headinfo").css("display","block");
 	});
 
 	$("#upbutton").click(function(){
-		$("#upinput").click();
+		$("#upinput").trigger("click");
 	});
 	
 	$("#upinput").change(function(){
@@ -37,10 +37,8 @@ $(document).ready(function(){
 			function arrayBufferToWordArray(arrayBuffer) {
 				var fullWords = Math.floor(arrayBuffer.byteLength / 4);
 				var bytesLeft = arrayBuffer.byteLength % 4;
-
 				var u32 = new Uint32Array(arrayBuffer, 0, fullWords);
 				var u8 = new Uint8Array(arrayBuffer);
-
 				var cp = [];
 				for (var i = 0; i < fullWords; ++i) {
 					cp.push(swapendian32(u32[i]));
@@ -52,11 +50,9 @@ $(document).ready(function(){
 						pad = pad << 8;
 						pad += u8[u8.byteLength - i];
 					}
-
 					for (var i = 0; i < 4 - bytesLeft; ++i) {
 						pad = pad << 8;
 					}
-
 					cp.push(pad);
 				}
 
@@ -112,5 +108,5 @@ $(document).ready(function(){
 	});
 });
 function downloadFile(url){
-    $("body").append($("<iframe/>").attr({src:url,id:"downloadiframe"}));
-	$("#downloadiframe").css("display","none");
+	$("#downloadiframe").attr("src",url);
+}
