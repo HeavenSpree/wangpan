@@ -19,14 +19,14 @@ if($register=='email')
 {
 	?>
 	<span id="errorprompt"></span>
-	<p>
-	<input type="text" id="email" placeholder="邮箱">
+	<p class="register-main">
+	<input type="text" class="inputbox" id="email" placeholder="邮箱">
 	</p>
-	<p>
-	<input type="password" id="password" placeholder="密码">
+	<p class="register-main">
+	<input type="password" class="inputbox" id="password" placeholder="密码">
 	</p>
-	<p>
-	<input type="text" id="checktxt" placeholder="验证码">
+	<p class="register-main">
+	<input type="text" class="inputbox" id="checktxt" placeholder="验证码">
 	<img id="checkimg" src="include/lib/checkcode.php" alt="验证码">
 	</p>
 	<?php
@@ -38,8 +38,8 @@ elseif($register=='phone')
 	<?php
 }
 ?>
-<p>
-<input type="submit" id="registerbuttn" value="注册">
+<p class="register-main">
+<input type="submit" class="inputbox" id="registerbutton" value="注册">
 </p>
 </div>
 </body>

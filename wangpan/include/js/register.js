@@ -1,5 +1,5 @@
 $(document).ready(function(){
-	$("#registerbuttn").click(function(){
+	$("#registerbutton").click(function(){
 		$.post("doregister.php",{hide:"4",email:$("#email").val(),password:$("#password").val(),checkcode:$("#checktxt").val()},
 		function(data){
 			if(data=='0')

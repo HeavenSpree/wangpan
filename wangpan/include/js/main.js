@@ -80,26 +80,43 @@ $(document).ready(function(){
 					hash=c.finalize().toString();
 					$.post("dohash.php",{hide:"4",hash:hash,filename:file.name},
 					function(data){
-						$("#pre").text(data);
 						if(data!="1")
 						{
-							var filedata=new FormData();
-							$.each($("#upinput")[0].files,function(i,upfile){
-								filedata.append('hide',"4");
-								filedata.append('hash',hash);
-								filedata.append('upload_file',upfile);
-							});
-							$.ajax({
-								url:'doupload.php',
-								type:'POST',
-								data:filedata,
-								cache: false,
-								contentType: false,
-								processData: false,
-								success:function(data1){
-									$("#pre").text(data1);
-								}
-							});
+							if(data=="0")
+							{
+								var filedata=new FormData();
+								$.each($("#upinput")[0].files,function(i,upfile){
+									filedata.append('hide',"4");
+									filedata.append('hash',hash);
+									filedata.append('upload_file',upfile);
+								});
+								$.ajax({
+									url:'doupload.php',
+									type:'POST',
+									data:filedata,
+									cache: false,
+									contentType: false,
+									processData: false,
+									success:function(data1){
+										if(data1=="1")
+										{
+											window.location.reload(true);
+										}
+										else
+										{
+											alert(data1);
+										}
+									}
+								});
+							}
+							else
+							{
+								alert(data);
+							}
+						}
+						else
+						{
+							window.location.reload(true);
 						}
 					});
 				}

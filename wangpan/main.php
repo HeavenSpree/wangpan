@@ -25,9 +25,10 @@ $_SESSION['parentid']=$row[0]['id'];
 <div id="head">
 <ul id="headbar">
 <li><a href="main.php"><img src="include/img/logo.png"></a></li>
-<li><a id="wangpan" href=""></a></li>
+<li><a id="wangpan" href="main.php"></a></li>
 <li><a id="fenxiang" href=""></a></li>
 <li><a id="gongxiang" href=""></a></li>
+<li><a id="about" href="about.php"></a></li>
 </ul>
 <div id="headbarr">
 <div id="headimg">
@@ -38,6 +39,8 @@ $_SESSION['parentid']=$row[0]['id'];
 <li>
 <?php
 $row=$sqltool->select('users',"id=$id");
+$usedsize=$row[0]['usedsize'];
+$totalsize=$row[0]['totalsize'];
 echo $row[0]['nickname'];
 ?>
 </li>
@@ -58,14 +61,49 @@ echo $row[0]['nickname'];
 <li id="sharetxt"><a>分享</a></li>
 <li id="recycle"><a>回收站</a></li>
 </ul>
-<div>
-<span>
-<span></span>
+<div id="space">
+<span id="total">
+<span id="used" style="width: <?php echo $usedsize/$totalsize*100 ?>%;"></span>
 </span>
-<div>
-<span></span>
+<div id="space-content">
+<span><?php
+		if($usedsize<1024)
+		{
+			echo $usedsize.'B';
+		}
+		elseif($usedsize<1048576)
+		{
+			echo round($usedsize/1024).'K';
+		}
+		elseif($usedsize<1073741824)
+		{
+			echo round($usedsize/1048576,1).'M';
+		}
+		elseif($usedsize<1099511627776)
+		{
+			echo round($usedsize/1073741824,2).'G';
+		} 
+		?>/<?php
+		if($totalsize<1024)
+		{
+			echo $totalsize.'B';
+		}
+		elseif($totalsize<1048576)
+		{
+			echo round($totalsize/1024).'K';
+		}
+		elseif($totalsize<1073741824)
+		{
+			echo round($totalsize/1048576,1).'M';
+		}
+		elseif($totalsize<1099511627776)
+		{
+			echo round($totalsize/1073741824,2).'G';
+		} 
+		?></span>
 </div>
 </div>
+<div><span></span></div>
 </div>
 <div id="main">
 <div id="toolbar">
@@ -114,7 +152,7 @@ foreach($row as $key => $value)
 	?>
 	<li class="row">
 	<div></div>
-	<div class="column-name filename">
+	<div class="column-name">
 	<span></span>
 	<span><?php echo $value['filename'] ?></span>
 	<span class="downliad">
@@ -122,7 +160,7 @@ foreach($row as $key => $value)
 	</span>
 	<span></span>
 	</div>
-	<div class="column-size filesize"><?php 
+	<div class="column-size"><?php 
 	if(2!=$value['filetype'])
 	{
 		$file=$sqltool->select('file','id='.$value['fileid']);
@@ -145,7 +183,7 @@ foreach($row as $key => $value)
 		}
 	}
 	?></div>
-	<div class="column-time filetime"><?php echo $value['modified']; ?></div>
+	<div class="column-time"><?php echo $value['modified']; ?></div>
 	</li>
 	<?php
 }
@@ -155,6 +193,9 @@ $sqltool->close();
 </ul>
 </div> 
 </div>
+</div>
+<div id="doc" style="display: none;">
+所有的文档类文件
 </div>
 </body>
 </html>

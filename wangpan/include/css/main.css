@@ -88,6 +88,14 @@
 	background:url(http://localhost/include/img/headbar3.png);
 }
 
+#about
+{
+	display: block;
+	height: 60px;
+	width: 84px;
+	background:url(http://localhost/include/img/about.png);
+}
+
 #sidebar ul
 {
 	padding-top: 10px;
@@ -124,6 +132,41 @@
 	border-top: 1px solid;
 	border-bottom: 1px solid;
 	border-color: #c7d7e1;
+}
+
+#space
+{
+	position: absolute;
+	display: block;
+	width: 100%;
+	bottom: 20px;
+}
+
+#total
+{
+	display: block;
+	position: relative;
+	height: 5px;
+	margin: 0 25px 5px;
+	background-color: #bccccf;
+	border: 1px solid #9cb1b8;
+}
+
+#used
+{
+	position: absolute;
+	display: block;
+	height: 7px;
+	left: -1px;
+	top: -1px;
+	background-color: #3a9fe7;
+	border-radius: 4px;
+}
+
+#space-content
+{
+	margin: 0 25px;
+	font: 13px arial;
 }
 
 #toolbar
@@ -277,7 +320,6 @@
 
 .column
 {
-	float: left;
 	color: #a8a9aa;
 	height: 36px;
 	line-height: 36px;
@@ -286,19 +328,19 @@
 .column-name
 {
 	float: left;
-	width: 60%;
+	width: 65%;
 }
 
 .column-size
 {
 	float: left;
-	width: 16%;
+	width: 12%;
 }
 
 .column-time
 {
 	float: left;
-	width: 24%;
+	width: 20%;
 }
 
 .row
@@ -306,7 +348,7 @@
 	height: 45px;
 	border-bottom: 1px solid #e5e5e5;
 	list-style-type: none;
-	font: 14px arial;
+	font: 12px arial;
 	line-height: 45px;
 }
 
