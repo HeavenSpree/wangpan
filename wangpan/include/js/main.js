@@ -2,7 +2,87 @@ $(document).ready(function(){
 	$("#headimg").click(function(){
 		$("#headinfo").css("display","block");
 	});
-
+	
+	$("#selall").click(function(){
+		$(".seled").removeAttr("class");
+		$(this).attr("class","seled");
+		function(mainfile){
+			$("#alllist").html(mainfile);
+		},"text");
+	})
+	
+	$("#seldoc").click(function(){
+		$(".seled").removeAttr("class");
+		$(this).attr("class","seled");
+		function(mainfile){
+			$("#alllist").html(mainfile);
+		},"text");
+	})
+	
+	$("#selimg").click(function(){
+		$(".seled").removeAttr("class");
+		$(this).attr("class","seled");
+		function(mainfile){
+			$("#alllist").html(mainfile);
+		},"text");
+	})
+	
+	$("#selmusic").click(function(){
+		$(".seled").removeAttr("class");
+		$(this).attr("class","seled");
+		function(mainfile){
+			$("#alllist").html(mainfile);
+		},"text");
+	})
+	
+	$("#selvideo").click(function(){
+		$(".seled").removeAttr("class");
+		$(this).attr("class","seled");
+		function(mainfile){
+			$("#alllist").html(mainfile);
+		},"text");
+	})
+	
+	$("#selexe").click(function(){
+		$(".seled").removeAttr("class");
+		$(this).attr("class","seled");
+		function(mainfile){
+			$("#alllist").html(mainfile);
+		},"text");
+	})
+	
+	$("#selzip").click(function(){
+		$(".seled").removeAttr("class");
+		$(this).attr("class","seled");
+		function(mainfile){
+			$("#alllist").html(mainfile);
+		},"text");
+	})
+	
+	$("#selother").click(function(){
+		$(".seled").removeAttr("class");
+		$(this).attr("class","seled");
+		function(mainfile){
+			$("#alllist").html(mainfile);
+		},"text");
+	})
+	
+	$("#sharetxt").click(function(){
+		$(".seled").removeAttr("class");
+		$(this).attr("class","seled");
+		function(mainfile){
+			$("#alllist").html(mainfile);
+		},"text");
+	})
+	
+	$("#recycle").click(function(){
+		$(".seled").removeAttr("class");
+		$(this).attr("class","seled");
+		function(mainfile){
+			$("#alllist").html(mainfile);
+		},"text");
+	})
+	
 	$("#upbutton").click(function(){
 		$("#upinput").trigger("click");
 	});
@@ -118,7 +198,7 @@ $(document).ready(function(){
 						{
 							window.location.reload(true);
 						}
-					});
+					},"text");
 				}
 			};
 		}

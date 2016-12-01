@@ -1,4 +1,4 @@
-﻿body
+body
 {
 	overflow: hidden;
 }
@@ -111,6 +111,11 @@
 }
 
 #sidebar ul li :hover
+{
+	background-color: #fcfcfc;
+}
+
+.seled
 {
 	background-color: #fcfcfc;
 }
@@ -359,7 +364,7 @@
 	overflow-y: auto;
 }
 
-.downliad
+.download
 {
 	float: right;
 	margin-right: 20px;

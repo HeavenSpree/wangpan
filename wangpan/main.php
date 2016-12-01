@@ -52,12 +52,14 @@ echo $row[0]['nickname'];
 </div>
 <div id="sidebar">
 <ul>
-<li><a>所有文件</a></li>
-<li><a>文档</a></li>
-<li><a>图片</a></li>
-<li><a>音乐</a></li>
-<li><a>视频</a></li>
-<li><a>压缩包</a></li>
+<li id="selall"><a>所有文件</a></li>
+<li id="seldoc"><a>文档</a></li>
+<li id="selimg"><a>图片</a></li>
+<li id="selmusic"><a>音乐</a></li>
+<li id="selvideo"><a>视频</a></li>
+<li id="selexe"><a>程序</a></li>
+<li id="selzip"><a>压缩包</a></li>
+<li id="selother"><a>其他</a></li>
 <li id="sharetxt"><a>分享</a></li>
 <li id="recycle"><a>回收站</a></li>
 </ul>
@@ -144,57 +146,28 @@ echo $row[0]['nickname'];
 var height=$(document).height()-185;
 $("#filelistmain").css("height",height);
 </script>
-<ul id="list">
-<?php
-$row=$sqltool->select('userfile','userid='.$id.' AND parentid='.$_SESSION['parentid']." AND state=0");
-foreach($row as $key => $value)
-{
-	?>
-	<li class="row">
-	<div></div>
-	<div class="column-name">
-	<span></span>
-	<span><?php echo $value['filename'] ?></span>
-	<span class="downliad">
-	<a href="javascript:void(0);" id="download" onclick="downloadFile('include/lib/download.php?id=<?php echo $value['id']; ?>')" target="_blank" download="<?php echo $value['filename'] ?>">下载</a>
-	</span>
-	<span></span>
-	</div>
-	<div class="column-size"><?php 
-	if(2!=$value['filetype'])
-	{
-		$file=$sqltool->select('file','id='.$value['fileid']);
-		$filesize=$file[0]['size'];
-		if($filesize<1024)
-		{
-			echo $filesize.'B';
-		}
-		elseif($filesize<1048576)
-		{
-			echo round($filesize/1024).'K';
-		}
-		elseif($filesize<1073741824)
-		{
-			echo round($filesize/1048576,1).'M';
-		}
-		elseif($filesize<1099511627776)
-		{
-			echo round($filesize/1073741824,2).'G';
-		}
-	}
-	?></div>
-	<div class="column-time"><?php echo $value['modified']; ?></div>
-	</li>
-	<?php
-}
-$sqltool->close();
-?>
-<iframe id="downloadiframe"></iframe>
-</ul>
-</div> 
+<div id="alllist">
 </div>
 </div>
 <div id="doc" style="display: none;">
+所有的文档类文件
+</div>
+<div id="img" style="display: none;">
+所有的文档类文件
+</div>
+<div id="music" style="display: none;">
+所有的文档类文件
+</div>
+<div id="video" style="display: none;">
+所有的文档类文件
+</div>
+<div id="zip" style="display: none;">
+所有的文档类文件
+</div>
+<div id="share" style="display: none;">
+所有的文档类文件
+</div>
+<div id="recyclepage" style="display: none;">
 所有的文档类文件
 </div>
 </body>

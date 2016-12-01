@@ -10,3 +10,43 @@
 enum state(normal,deleted,previous);
 enum share(no,yes);
 enum filetype(disk,driver,folder);
+
+
+txt 3
+doc
+docx 4
+ppt
+pptx  5
+xls
+xlsx  6
+pdf  7
+chm  8
+
+css= 代码
+text/html=  网页
+text/plain==  代码
+vbs====daima
+text/xml===daima
+text/plain/daima  9
+
+image/*===============tupian   10
+
+audio/*============audio  11
+
+video/* ==========shipin  12
+
+zip/rar/gz================= 13
+
+font/*==============font    14
+
+exe apk           15
+
+qita ==============99
+
+
+
+
+
+
+
+

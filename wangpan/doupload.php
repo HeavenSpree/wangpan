@@ -36,7 +36,88 @@ else
 					if($fileid!=-1)
 					{
 						$filename=$_FILES['upload_file']['name'];
-						$filetype=3;
+						$type=$_FILES['upload_file']['type'];
+						switch(substr($type,0,strpos($type,'/')))
+						{
+							case 'text':
+							switch($type)
+							{
+								case 'text/html':
+								case 'text/plain':
+								case 'text/xml':
+								$filetype=9;
+								break;
+								default:
+								$filetype=99;
+							}
+							break;
+							case 'image':
+							$filetype=10;
+							break;
+							case 'audio':
+							$filetype=11;
+							break;
+							case 'video':
+							$filetype=12;
+							break;
+							default:
+							$filetype=99;
+						}
+						$ext=substr($filename,strrpos($filename,'.')+1);
+						switch($ext)
+						{
+							case 'txt':
+							$filetype=3;
+							break;
+							case 'doc':
+							case 'docx';
+							$filetype=4;
+							break;
+							case 'ppt':
+							case 'pptx':
+							$filetype=5;
+							break;
+							case 'xls':
+							case 'xlsx':
+							$filetype=6;
+							break;
+							case 'pdf':
+							$filetype=7;
+							break;
+							case 'chm':
+							$filename=8;
+							break;
+							case 'zip':
+							case 'rar':
+							case '7z':
+							case '001':
+							case 'bz2':
+							case 'gz':
+							case 'gzip':
+							case 'tar':
+							case 'taz':
+							case 'tgz':
+							case 'txz':
+							case 'lha':
+							case 'lzh':
+							$filetype=13;
+							break;
+							case 'fon':
+							case 'ttf':
+							$filetype=14;
+							break;
+							case 'js':
+							case 'vbs':
+							case 'py':
+							case 'php':
+							$filetype=9;
+							break;
+							case 'exe':
+							case 'apk':
+							case 'msi':
+							$filetype=15;
+							break;
+						}
 						if($_SESSION['usedsize']+$filesize<$_SESSION['totalsize'])
 						{
 							$userid=$_SESSION['id'];
