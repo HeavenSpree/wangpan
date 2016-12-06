@@ -2,13 +2,20 @@
 $dir = dirname(__FILE__);
 require_once $dir."/include/lib/sqltool.php";
 session_start();
-if(empty($id=$_SESSION['id']))
+if(empty($_SESSION['id']))
 {
 	header("location:index.php");
 }
+else
+{
+	$id=$_SESSION['id'];
+}
 $sqltool=new sqltool();
-$row=$sqltool->select('userfile',"userid=$id AND filetype=1");
-$_SESSION['parentid']=$row[0]['id'];
+if(empty($_SESSION['parentid']))
+{
+	$row=$sqltool->select('userfile',"userid=$id AND filetype=1");
+	$_SESSION['parentid']=$row[0]['id'];
+}
 ?>
 <!doctype html>
 <html>
@@ -36,16 +43,14 @@ $_SESSION['parentid']=$row[0]['id'];
 </div>
 <div id="headinfo">
 <ul>
-<li>
-<?php
+<li id="infotext"><?php
 $row=$sqltool->select('users',"id=$id");
 $usedsize=$row[0]['usedsize'];
 $totalsize=$row[0]['totalsize'];
 echo $row[0]['nickname'];
-?>
-</li>
-<li>个人资料</li>
-<li>退出</li>
+?></li>
+<li><a href="user.php">个人资料</a></li>
+<li id="logout"><a>退出</a></li>
 </ul>
 </div>
 </div>
@@ -59,6 +64,7 @@ echo $row[0]['nickname'];
 <li id="selvideo"><a>视频</a></li>
 <li id="selexe"><a>程序</a></li>
 <li id="selzip"><a>压缩包</a></li>
+<li id="selbt"><a>种子</a></li>
 <li id="selother"><a>其他</a></li>
 <li id="sharetxt"><a>分享</a></li>
 <li id="recycle"><a>回收站</a></li>
@@ -107,7 +113,8 @@ echo $row[0]['nickname'];
 </div>
 <div><span></span></div>
 </div>
-<div id="main">
+<div class="main">
+<div id="all">
 <div id="toolbar">
 <div id="toolbar-left">
 <div>
@@ -130,7 +137,7 @@ echo $row[0]['nickname'];
 </div>
 </div>
 <div id="crumb">
-<div id="crumbpath"><span id="path">全部文件</span></div>
+<div class="crumbpath"><span class="path" id="last-path">全部文件</span></div>
 </div>
 <div id="filelist">
 <div class="" id="filelisthead">
@@ -141,34 +148,580 @@ echo $row[0]['nickname'];
 <div class="column column-size">大小</div>
 <div class="column column-time">修改时间</div>
 </div>
-<div id="filelistmain">
+<div class="filelistmain">
 <script>
-var height=$(document).height()-185;
-$("#filelistmain").css("height",height);
+var height=$(document).height()-186;
+$(".filelistmain").css("height",height);
 </script>
 <div id="alllist">
+<ul id="list">
+<li class="row" id="newrow">
+<div></div>
+<div class="column-name">
+<span class="fileicon folderico"></span>
+<span><input type="text" id="newinput" value="新建文件夹"></span>
+</div>
+<div class="column-size">-</div>
+<div class="column-time">-</div>
+</li>
+<?php
+$row=$sqltool->select('userfile',"userid=$id AND parentid=".$_SESSION['parentid'].' AND state=0');
+$fileid=array();
+foreach($row as $key => $value)
+{
+	$fileid[$key+1]=$value['id'];
+	?>
+	<li class="row" listid="<?php echo $key+1; ?>">
+	<div></div>
+	<div class="column-name">
+	<span class="fileicon <?php 
+	switch($value['filetype'])
+	{
+		case 2:
+		echo 'folderico';
+		break;
+		case 3:
+		echo 'txtico';
+		break;
+		case 4:
+		echo 'docico';
+		break;
+		case 5:
+		echo 'pptico';
+		break;
+		case 6:
+		echo 'xlsico';
+		break;
+		case 7:
+		echo 'pdfico';
+		break;
+		case 9:
+		echo 'codeico';
+		break;
+		case 10:
+		echo 'imgico';
+		break;
+		case 11:
+		echo 'audioico';
+		break;
+		case 12:
+		echo 'videoico';
+		break;
+		case 13:
+		echo 'zipico';
+		break;
+		case 14:
+		echo 'fontico';
+		break;
+		case 15:
+		echo 'exeico';
+		break;
+		case 16:
+		echo 'btico';
+		break;
+		case 8:
+		default:
+		echo 'otherico';
+	}
+	?>"></span>
+	<span <?php
+	if($value['filetype']==2)
+		echo ' class="foldername"';	
+	?>><?php echo $value['filename'] ?></span>
+	<?php
+	if($value['filetype']!=2)
+	{
+		?>
+	<span class="operate">
+	<a href="javascript:void(0);" class="del">删除</a>
+	</span>
+	<span class="operate">
+	<a href="javascript:void(0);" class="download" target="_blank" download="<?php echo $value['filename']; ?>">下载</a>
+	</span>
+		<?php
+	}
+	?>
+	</div>
+	<div class="column-size"><?php 
+	if(2!=$value['filetype'])
+	{
+		$file=$sqltool->select('file','id='.$value['fileid']);
+		$filesize=$file[0]['size'];
+		if($filesize<1024)
+		{
+			echo $filesize.'B';
+		}
+		elseif($filesize<1048576)
+		{
+			echo round($filesize/1024).'K';
+		}
+		elseif($filesize<1073741824)
+		{
+			echo round($filesize/1048576,1).'M';
+		}
+		elseif($filesize<1099511627776)
+		{
+			echo round($filesize/1073741824,2).'G';
+		}
+	}
+	else
+	{
+		echo '-';
+	}
+	?></div>
+	<div class="column-time"><?php echo $value['modified']; ?></div>
+	</li>
+	<?php
+}
+$sqltool->close();
+$_SESSION['fileid']=$fileid;
+?>
+</ul>
+</div>
+</div>
 </div>
 </div>
 <div id="doc" style="display: none;">
-所有的文档类文件
+<div id="toolbar">
+<div id="toolbar-left">
+<div>
+<div class="item">
+<span id="tbupload"><input type="file" id="upinput"><a id="upbutton">上传</a></span>
+</div>
+<div class="item">
+<span id="tbnew">新建文件夹</span>
+</div>
+<div class="item">
+<span id="tbbt">离线下载</span>
+</div>
+</div>
+</div>
+<div id="toolbar-right">
+<div id="search">
+<span id="searchimg"><img src="include/img/ico.png"></span>
+<input id="searchinput" type="text" placeholder="搜索文件">
+</div>
+</div>
+</div>
+<div id="crumb">
+<div class="crumbpath"><span class="path" id="last-path">文档</span></div>
+</div>
+<div id="filelist">
+<div class="" id="filelisthead">
+<div></div>
+<div class="column column-name">
+<span>文件名</span>
+</div>
+<div class="column column-size">大小</div>
+<div class="column column-time">修改时间</div>
+</div>
+<div class="filelistmain">
+<script>
+var height=$(document).height()-186;
+$(".filelistmain").css("height",height);
+</script>
+<div id="doclist">
+</div>
+</div>
+</div>
 </div>
 <div id="img" style="display: none;">
-所有的文档类文件
+<div id="toolbar">
+<div id="toolbar-left">
+<div>
+<div class="item">
+<span id="tbupload"><input type="file" id="upinput"><a id="upbutton">上传</a></span>
+</div>
+<div class="item">
+<span id="tbnew">新建文件夹</span>
+</div>
+<div class="item">
+<span id="tbbt">离线下载</span>
+</div>
+</div>
+</div>
+<div id="toolbar-right">
+<div id="search">
+<span id="searchimg"><img src="include/img/ico.png"></span>
+<input id="searchinput" type="text" placeholder="搜索文件">
+</div>
+</div>
+</div>
+<div id="crumb">
+<div class="crumbpath"><span class="path" id="last-path">图片</span></div>
+</div>
+<div id="filelist">
+<div class="" id="filelisthead">
+<div></div>
+<div class="column column-name">
+<span>文件名</span>
+</div>
+<div class="column column-size">大小</div>
+<div class="column column-time">修改时间</div>
+</div>
+<div class="filelistmain">
+<script>
+var height=$(document).height()-186;
+$(".filelistmain").css("height",height);
+</script>
+<div id="imglist">
+</div>
+</div>
+</div>
 </div>
 <div id="music" style="display: none;">
-所有的文档类文件
+<div id="toolbar">
+<div id="toolbar-left">
+<div>
+<div class="item">
+<span id="tbupload"><input type="file" id="upinput"><a id="upbutton">上传</a></span>
+</div>
+<div class="item">
+<span id="tbnew">新建文件夹</span>
+</div>
+<div class="item">
+<span id="tbbt">离线下载</span>
+</div>
+</div>
+</div>
+<div id="toolbar-right">
+<div id="search">
+<span id="searchimg"><img src="include/img/ico.png"></span>
+<input id="searchinput" type="text" placeholder="搜索文件">
+</div>
+</div>
+</div>
+<div id="crumb">
+<div class="crumbpath"><span class="path" id="last-path">音乐</span></div>
+</div>
+<div id="filelist">
+<div class="" id="filelisthead">
+<div></div>
+<div class="column column-name">
+<span>文件名</span>
+</div>
+<div class="column column-size">大小</div>
+<div class="column column-time">修改时间</div>
+</div>
+<div class="filelistmain">
+<script>
+var height=$(document).height()-186;
+$(".filelistmain").css("height",height);
+</script>
+<div id="musiclist">
+</div>
+</div>
+</div>
 </div>
 <div id="video" style="display: none;">
-所有的文档类文件
+<div id="toolbar">
+<div id="toolbar-left">
+<div>
+<div class="item">
+<span id="tbupload"><input type="file" id="upinput"><a id="upbutton">上传</a></span>
+</div>
+<div class="item">
+<span id="tbnew">新建文件夹</span>
+</div>
+<div class="item">
+<span id="tbbt">离线下载</span>
+</div>
+</div>
+</div>
+<div id="toolbar-right">
+<div id="search">
+<span id="searchimg"><img src="include/img/ico.png"></span>
+<input id="searchinput" type="text" placeholder="搜索文件">
+</div>
+</div>
+</div>
+<div id="crumb">
+<div class="crumbpath"><span class="path" id="last-path">视频</span></div>
+</div>
+<div id="filelist">
+<div class="" id="filelisthead">
+<div></div>
+<div class="column column-name">
+<span>文件名</span>
+</div>
+<div class="column column-size">大小</div>
+<div class="column column-time">修改时间</div>
+</div>
+<div class="filelistmain">
+<script>
+var height=$(document).height()-186;
+$(".filelistmain").css("height",height);
+</script>
+<div id="videolist">
+</div>
+</div>
+</div>
+</div>
+<div id="exe" style="display: none;">
+<div id="toolbar">
+<div id="toolbar-left">
+<div>
+<div class="item">
+<span id="tbupload"><input type="file" id="upinput"><a id="upbutton">上传</a></span>
+</div>
+<div class="item">
+<span id="tbnew">新建文件夹</span>
+</div>
+<div class="item">
+<span id="tbbt">离线下载</span>
+</div>
+</div>
+</div>
+<div id="toolbar-right">
+<div id="search">
+<span id="searchimg"><img src="include/img/ico.png"></span>
+<input id="searchinput" type="text" placeholder="搜索文件">
+</div>
+</div>
+</div>
+<div id="crumb">
+<div class="crumbpath"><span class="path" id="last-path">程序</span></div>
+</div>
+<div id="filelist">
+<div class="" id="filelisthead">
+<div></div>
+<div class="column column-name">
+<span>文件名</span>
+</div>
+<div class="column column-size">大小</div>
+<div class="column column-time">修改时间</div>
+</div>
+<div class="filelistmain">
+<script>
+var height=$(document).height()-186;
+$(".filelistmain").css("height",height);
+</script>
+<div id="exelist">
+</div>
+</div>
+</div>
 </div>
 <div id="zip" style="display: none;">
-所有的文档类文件
+<div id="toolbar">
+<div id="toolbar-left">
+<div>
+<div class="item">
+<span id="tbupload"><input type="file" id="upinput"><a id="upbutton">上传</a></span>
+</div>
+<div class="item">
+<span id="tbnew">新建文件夹</span>
+</div>
+<div class="item">
+<span id="tbbt">离线下载</span>
+</div>
+</div>
+</div>
+<div id="toolbar-right">
+<div id="search">
+<span id="searchimg"><img src="include/img/ico.png"></span>
+<input id="searchinput" type="text" placeholder="搜索文件">
+</div>
+</div>
+</div>
+<div id="crumb">
+<div class="crumbpath"><span class="path" id="last-path">压缩包</span></div>
+</div>
+<div id="filelist">
+<div class="" id="filelisthead">
+<div></div>
+<div class="column column-name">
+<span>文件名</span>
+</div>
+<div class="column column-size">大小</div>
+<div class="column column-time">修改时间</div>
+</div>
+<div class="filelistmain">
+<script>
+var height=$(document).height()-186;
+$(".filelistmain").css("height",height);
+</script>
+<div id="ziplist">
+</div>
+</div>
+</div>
+</div>
+<div id="bt" style="display: none;">
+<div id="toolbar">
+<div id="toolbar-left">
+<div>
+<div class="item">
+<span id="tbupload"><input type="file" id="upinput"><a id="upbutton">上传</a></span>
+</div>
+<div class="item">
+<span id="tbnew">新建文件夹</span>
+</div>
+<div class="item">
+<span id="tbbt">离线下载</span>
+</div>
+</div>
+</div>
+<div id="toolbar-right">
+<div id="search">
+<span id="searchimg"><img src="include/img/ico.png"></span>
+<input id="searchinput" type="text" placeholder="搜索文件">
+</div>
+</div>
+</div>
+<div id="crumb">
+<div class="crumbpath"><span class="path" id="last-path">种子</span></div>
+</div>
+<div id="filelist">
+<div class="" id="filelisthead">
+<div></div>
+<div class="column column-name">
+<span>文件名</span>
+</div>
+<div class="column column-size">大小</div>
+<div class="column column-time">修改时间</div>
+</div>
+<div class="filelistmain">
+<script>
+var height=$(document).height()-186;
+$(".filelistmain").css("height",height);
+</script>
+<div id="btlist">
+</div>
+</div>
+</div>
+</div>
+<div id="other" style="display: none;">
+<div id="toolbar">
+<div id="toolbar-left">
+<div>
+<div class="item">
+<span id="tbupload"><input type="file" id="upinput"><a id="upbutton">上传</a></span>
+</div>
+<div class="item">
+<span id="tbnew">新建文件夹</span>
+</div>
+<div class="item">
+<span id="tbbt">离线下载</span>
+</div>
+</div>
+</div>
+<div id="toolbar-right">
+<div id="search">
+<span id="searchimg"><img src="include/img/ico.png"></span>
+<input id="searchinput" type="text" placeholder="搜索文件">
+</div>
+</div>
+</div>
+<div id="crumb">
+<div class="crumbpath"><span class="path" id="last-path">其他</span></div>
+</div>
+<div id="filelist">
+<div class="" id="filelisthead">
+<div></div>
+<div class="column column-name">
+<span>文件名</span>
+</div>
+<div class="column column-size">大小</div>
+<div class="column column-time">修改时间</div>
+</div>
+<div class="filelistmain">
+<script>
+var height=$(document).height()-186;
+$(".filelistmain").css("height",height);
+</script>
+<div id="otherlist">
+</div>
+</div>
+</div>
 </div>
 <div id="share" style="display: none;">
-所有的文档类文件
+<div id="toolbar">
+<div id="toolbar-left">
+<div>
+<div class="item">
+<span id="tbupload"><input type="file" id="upinput"><a id="upbutton">上传</a></span>
+</div>
+<div class="item">
+<span id="tbnew">新建文件夹</span>
+</div>
+<div class="item">
+<span id="tbbt">离线下载</span>
+</div>
+</div>
+</div>
+<div id="toolbar-right">
+<div id="search">
+<span id="searchimg"><img src="include/img/ico.png"></span>
+<input id="searchinput" type="text" placeholder="搜索文件">
+</div>
+</div>
+</div>
+<div id="crumb">
+<div class="crumbpath"><span class="path" id="last-path">全部分享</span></div>
+</div>
+<div id="filelist">
+<div class="" id="filelisthead">
+<div></div>
+<div class="column column-name">
+<span>文件名</span>
+</div>
+<div class="column column-size">大小</div>
+<div class="column column-time">修改时间</div>
+</div>
+<div class="filelistmain">
+<script>
+var height=$(document).height()-186;
+$(".filelistmain").css("height",height);
+</script>
+<div id="sharelist">
+</div>
+</div>
+</div>
 </div>
 <div id="recyclepage" style="display: none;">
-所有的文档类文件
+<div id="toolbar">
+<div id="toolbar-left">
+<div>
+<div class="item">
+<span id="tbupload"><input type="file" id="upinput"><a id="upbutton">上传</a></span>
 </div>
+<div class="item">
+<span id="tbnew">新建文件夹</span>
+</div>
+<div class="item">
+<span id="tbbt">离线下载</span>
+</div>
+</div>
+</div>
+<div id="toolbar-right">
+<div id="search">
+<span id="searchimg"><img src="include/img/ico.png"></span>
+<input id="searchinput" type="text" placeholder="搜索文件">
+</div>
+</div>
+</div>
+<div id="crumb">
+<div class="crumbpath"><span class="path" id="last-path">回收站</span></div>
+</div>
+<div id="filelist">
+<div class="" id="filelisthead">
+<div></div>
+<div class="column column-name">
+<span>文件名</span>
+</div>
+<div class="column column-size">大小</div>
+<div class="column column-time">修改时间</div>
+</div>
+<div class="filelistmain">
+<script>
+var height=$(document).height()-186;
+$(".filelistmain").css("height",height);
+</script>
+<div id="recyclelist">
+</div>
+</div>
+</div>
+</div>
+</div>
+<iframe id="downloadiframe"></iframe>
 </body>
 </html>

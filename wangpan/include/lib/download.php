@@ -31,12 +31,15 @@ else
 	}
 	else
 	{
-		if(empty($id=$_GET['id']))
+		if(empty($_GET['id']))
 		{
 			header("location:../../index.php");
 		}
 		else
 		{
+			$listid=$_GET['id'];
+			$userfileid=$_SESSION['fileid'];
+			$id=$userfileid[$listid];
 			$sqltool=new sqltool();
 			$userfile=$sqltool->select('userfile',"id=$id");
 			$fileid=$userfile[0]['fileid'];

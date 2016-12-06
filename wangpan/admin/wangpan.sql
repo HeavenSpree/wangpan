@@ -20,7 +20,7 @@ SET FOREIGN_KEY_CHECKS=0;
 -- ----------------------------
 DROP TABLE IF EXISTS `file`;
 CREATE TABLE `file` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `hash` varchar(40) NOT NULL,
   `size` int(11) unsigned NOT NULL,
   PRIMARY KEY (`id`,`hash`)
@@ -36,10 +36,10 @@ INSERT INTO `file` VALUES ('1', 'SYSTEM_FILE', '0');
 -- ----------------------------
 DROP TABLE IF EXISTS `userfile`;
 CREATE TABLE `userfile` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `userid` int(10) unsigned NOT NULL,
-  `parentid` int(10) unsigned NOT NULL,
-  `fileid` int(10) unsigned NOT NULL,
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `userid` int(11) unsigned NOT NULL,
+  `parentid` int(11) unsigned NOT NULL,
+  `fileid` int(11) unsigned NOT NULL,
   `filename` varchar(255) NOT NULL,
   `filetype` tinyint(3) unsigned NOT NULL,
   `modified` datetime NOT NULL,
@@ -65,7 +65,7 @@ INSERT INTO `userfile` VALUES ('1', '1', '1', '1', 'SYSTEM_DISK', '0', '0000-00-
 -- ----------------------------
 DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `email` varchar(100) NOT NULL,
   `password` varchar(64) NOT NULL,
   `nickname` varchar(64) NOT NULL,

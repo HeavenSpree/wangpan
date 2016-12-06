@@ -1,91 +1,616 @@
 $(document).ready(function(){
 	$("#headimg").click(function(){
-		$("#headinfo").css("display","block");
+		$("#headinfo").slideDown("slow");
+	});
+	
+	$("#headbarr").mouseleave(function(){
+		$("#headinfo").slideUp("slow");
+	});
+	
+	$("#logout").click(function(){
+		$.post("dologout.php",{hide:"4"},
+		function(data){
+			if(data=='0')
+				window.location.href="login.php";
+		},"text");
+	});
+	
+	$(document.body).on('click',".foldername",function(){
+		$.post("openfile.php",{hide:"4",id:$(this).parents(".row").attr("listid")},
+		function(data){
+			if(data=='0')
+				window.location.reload(true);
+		},"text");
+	});
+	
+	$("#tbbt").click(function(){
+		alert("此功能还没有完成");
+	});
+	
+	$("#tbnew").click(function(){
+		$("#newrow").css("display","block");
+		$("#newinput").focus();
+	});
+	
+	$(document.body).on('blur',"#newinput",function(){
+		$.post("dohash.php",{hide:"4",hash:"SYSTEM_FILE",filename:$(this).val(),filetype:"folder"},
+		function(data){
+			if(data=='1')
+				window.location.reload(true);
+		},"text");
+	});
+	
+	$(document.body).on('click',".download",function(){
+		var url="include/lib/download.php?id="+$(this).parents(".row").attr("listid");
+		$("#downloadiframe").attr("src",url);
+	});
+	
+	$(document.body).on('click',".del",function(){
+		$.post("delete.php",{hide:"4",id:$(this).parents(".row").attr("listid")},
+		function(data){
+			if(data=='0')
+				window.location.reload(true);
+		},"text");
 	});
 	
 	$("#selall").click(function(){
+		switch(location.hash)
+		{
+			case "#doc":
+			$("#doc").css("display","none");
+			break;
+			case "#img":
+			$("#img").css("display","none");
+			break;
+			case "#music":
+			$("#music").css("display","none");
+			break;
+			case "#video":
+			$("#video").css("display","none");
+			break;
+			case "#exe":
+			$("#exe").css("display","none");
+			break;
+			case "#zip":
+			$("#zip").css("display","none");
+			break;
+			case "#bt":
+			$("#bt").css("display","none");
+			break;
+			case "#other":
+			$("#other").css("display","none");
+			break;
+			case "#share":
+			$("#share").css("display","none");
+			break;
+			case "#recycle":
+			$("#recyclepage").css("display","none");
+			break;
+		}
+		location.hash="#all";
 		$(".seled").removeAttr("class");
 		$(this).attr("class","seled");
+		$.post("domain.php",{hide:"4",type:0},
 		function(mainfile){
+			$("#all").css("display","block");
 			$("#alllist").html(mainfile);
 		},"text");
 	})
 	
 	$("#seldoc").click(function(){
+		switch(location.hash)
+		{
+			case "#all":
+			$("#all").css("display","none");
+			break;
+			case "#img":
+			$("#img").css("display","none");
+			break;
+			case "#music":
+			$("#music").css("display","none");
+			break;
+			case "#video":
+			$("#video").css("display","none");
+			break;
+			case "#exe":
+			$("#exe").css("display","none");
+			break;
+			case "#zip":
+			$("#zip").css("display","none");
+			break;
+			case "#bt":
+			$("#bt").css("display","none");
+			break;
+			case "#other":
+			$("#other").css("display","none");
+			break;
+			case "#share":
+			$("#share").css("display","none");
+			break;
+			case "#recycle":
+			$("#recyclepage").css("display","none");
+			break;
+			default:
+			$("#all").css("display","none");
+			break;
+		}
+		location.hash="#doc";
 		$(".seled").removeAttr("class");
 		$(this).attr("class","seled");
+		$.post("domain.php",{hide:"4",type:1},
 		function(mainfile){
-			$("#alllist").html(mainfile);
+			$("#doc").css("display","block");
+			$("#doclist").html(mainfile);
 		},"text");
 	})
 	
 	$("#selimg").click(function(){
+		switch(location.hash)
+		{
+			case "#all":
+			$("#all").css("display","none");
+			break;
+			case "#doc":
+			$("#doc").css("display","none");
+			break;
+			case "#music":
+			$("#music").css("display","none");
+			break;
+			case "#video":
+			$("#video").css("display","none");
+			break;
+			case "#exe":
+			$("#exe").css("display","none");
+			break;
+			case "#zip":
+			$("#zip").css("display","none");
+			break;
+			case "#bt":
+			$("#bt").css("display","none");
+			break;
+			case "#other":
+			$("#other").css("display","none");
+			break;
+			case "#share":
+			$("#share").css("display","none");
+			break;
+			case "#recycle":
+			$("#recyclepage").css("display","none");
+			break;
+			default:
+			$("#all").css("display","none");
+			break;
+		}
+		location.hash="#img";
 		$(".seled").removeAttr("class");
 		$(this).attr("class","seled");
+		$.post("domain.php",{hide:"4",type:10},
 		function(mainfile){
-			$("#alllist").html(mainfile);
+			$("#img").css("display","block");
+			$("#imglist").html(mainfile);
 		},"text");
 	})
 	
 	$("#selmusic").click(function(){
+		switch(location.hash)
+		{
+			case "#all":
+			$("#all").css("display","none");
+			break;
+			case "#doc":
+			$("#doc").css("display","none");
+			break;
+			case "#img":
+			$("#img").css("display","none");
+			break;
+			case "#video":
+			$("#video").css("display","none");
+			break;
+			case "#exe":
+			$("#exe").css("display","none");
+			break;
+			case "#zip":
+			$("#zip").css("display","none");
+			break;
+			case "#bt":
+			$("#bt").css("display","none");
+			break;
+			case "#other":
+			$("#other").css("display","none");
+			break;
+			case "#share":
+			$("#share").css("display","none");
+			break;
+			case "#recycle":
+			$("#recyclepage").css("display","none");
+			break;
+			default:
+			$("#all").css("display","none");
+			break;
+		}
+		location.hash="#music";
 		$(".seled").removeAttr("class");
 		$(this).attr("class","seled");
+		$.post("domain.php",{hide:"4",type:11},
 		function(mainfile){
-			$("#alllist").html(mainfile);
+			$("#music").css("display","block");
+			$("#musiclist").html(mainfile);
 		},"text");
 	})
 	
 	$("#selvideo").click(function(){
+		switch(location.hash)
+		{
+			case "#all":
+			$("#all").css("display","none");
+			break;
+			case "#doc":
+			$("#doc").css("display","none");
+			break;
+			case "#img":
+			$("#img").css("display","none");
+			break;
+			case "#music":
+			$("#music").css("display","none");
+			break;
+			case "#exe":
+			$("#exe").css("display","none");
+			break;
+			case "#zip":
+			$("#zip").css("display","none");
+			break;
+			case "#bt":
+			$("#bt").css("display","none");
+			break;
+			case "#other":
+			$("#other").css("display","none");
+			break;
+			case "#share":
+			$("#share").css("display","none");
+			break;
+			case "#recycle":
+			$("#recyclepage").css("display","none");
+			break;
+			default:
+			$("#all").css("display","none");
+			break;
+		}
+		location.hash="#video";
 		$(".seled").removeAttr("class");
 		$(this).attr("class","seled");
+		$.post("domain.php",{hide:"4",type:12},
 		function(mainfile){
-			$("#alllist").html(mainfile);
+			$("#video").css("display","block");
+			$("#videolist").html(mainfile);
 		},"text");
 	})
 	
 	$("#selexe").click(function(){
+		switch(location.hash)
+		{
+			case "#all":
+			$("#all").css("display","none");
+			break;
+			case "#doc":
+			$("#doc").css("display","none");
+			break;
+			case "#img":
+			$("#img").css("display","none");
+			break;
+			case "#music":
+			$("#music").css("display","none");
+			break;
+			case "#video":
+			$("#video").css("display","none");
+			break;
+			case "#zip":
+			$("#zip").css("display","none");
+			break;
+			case "#bt":
+			$("#bt").css("display","none");
+			break;
+			case "#other":
+			$("#other").css("display","none");
+			break;
+			case "#share":
+			$("#share").css("display","none");
+			break;
+			case "#recycle":
+			$("#recyclepage").css("display","none");
+			break;
+			default:
+			$("#all").css("display","none");
+			break;
+		}
+		location.hash="#exe";
 		$(".seled").removeAttr("class");
 		$(this).attr("class","seled");
+		$.post("domain.php",{hide:"4",type:15},
 		function(mainfile){
-			$("#alllist").html(mainfile);
+			$("#exe").css("display","block");
+			$("#exelist").html(mainfile);
 		},"text");
 	})
 	
 	$("#selzip").click(function(){
+		switch(location.hash)
+		{
+			case "#all":
+			$("#all").css("display","none");
+			break;
+			case "#doc":
+			$("#doc").css("display","none");
+			break;
+			case "#img":
+			$("#img").css("display","none");
+			break;
+			case "#music":
+			$("#music").css("display","none");
+			break;
+			case "#video":
+			$("#video").css("display","none");
+			break;
+			case "#exe":
+			$("#exe").css("display","none");
+			break;
+			case "#bt":
+			$("#bt").css("display","none");
+			break;
+			case "#other":
+			$("#other").css("display","none");
+			break;
+			case "#share":
+			$("#share").css("display","none");
+			break;
+			case "#recycle":
+			$("#recyclepage").css("display","none");
+			break;
+			default:
+			$("#all").css("display","none");
+			break;
+		}
+		location.hash="#zip";
 		$(".seled").removeAttr("class");
 		$(this).attr("class","seled");
+		$.post("domain.php",{hide:"4",type:13},
 		function(mainfile){
-			$("#alllist").html(mainfile);
+			$("#zip").css("display","block");
+			$("#ziplist").html(mainfile);
+		},"text");
+	})
+	
+	$("#selbt").click(function(){
+		switch(location.hash)
+		{
+			case "#all":
+			$("#all").css("display","none");
+			break;
+			case "#doc":
+			$("#doc").css("display","none");
+			break;
+			case "#img":
+			$("#img").css("display","none");
+			break;
+			case "#music":
+			$("#music").css("display","none");
+			break;
+			case "#video":
+			$("#video").css("display","none");
+			break;
+			case "#exe":
+			$("#exe").css("display","none");
+			break;
+			case "#zip":
+			$("#zip").css("display","none");
+			break;
+			case "#other":
+			$("#other").css("display","none");
+			break;
+			case "#share":
+			$("#share").css("display","none");
+			break;
+			case "#recycle":
+			$("#recyclepage").css("display","none");
+			break;
+			default:
+			$("#all").css("display","none");
+			break;
+		}
+		location.hash="#bt";
+		$(".seled").removeAttr("class");
+		$(this).attr("class","seled");
+		$.post("domain.php",{hide:"4",type:16},
+		function(mainfile){
+			$("#bt").css("display","block");
+			$("#btlist").html(mainfile);
 		},"text");
 	})
 	
 	$("#selother").click(function(){
+		switch(location.hash)
+		{
+			case "#all":
+			$("#all").css("display","none");
+			break;
+			case "#doc":
+			$("#doc").css("display","none");
+			break;
+			case "#img":
+			$("#img").css("display","none");
+			break;
+			case "#music":
+			$("#music").css("display","none");
+			break;
+			case "#video":
+			$("#video").css("display","none");
+			break;
+			case "#exe":
+			$("#exe").css("display","none");
+			break;
+			case "#zip":
+			$("#zip").css("display","none");
+			break;
+			case "#bt":
+			$("#bt").css("display","none");
+			break;
+			case "#share":
+			$("#share").css("display","none");
+			break;
+			case "#recycle":
+			$("#recyclepage").css("display","none");
+			break;
+			default:
+			$("#all").css("display","none");
+			break;
+		}
+		location.hash="#other";
 		$(".seled").removeAttr("class");
 		$(this).attr("class","seled");
+		$.post("domain.php",{hide:"4",type:99},
 		function(mainfile){
-			$("#alllist").html(mainfile);
+			$("#other").css("display","block");
+			$("#otherlist").html(mainfile);
 		},"text");
 	})
 	
 	$("#sharetxt").click(function(){
+		switch(location.hash)
+		{
+			case "#all":
+			$("#all").css("display","none");
+			break;
+			case "#doc":
+			$("#doc").css("display","none");
+			break;
+			case "#img":
+			$("#img").css("display","none");
+			break;
+			case "#music":
+			$("#music").css("display","none");
+			break;
+			case "#video":
+			$("#video").css("display","none");
+			break;
+			case "#exe":
+			$("#exe").css("display","none");
+			break;
+			case "#zip":
+			$("#zip").css("display","none");
+			break;
+			case "#bt":
+			$("#bt").css("display","none");
+			break;
+			case "#other":
+			$("#other").css("display","none");
+			break;
+			case "#recycle":
+			$("#recyclepage").css("display","none");
+			break;
+			default:
+			$("#all").css("display","none");
+			break;
+		}
+		location.hash="#share";
 		$(".seled").removeAttr("class");
 		$(this).attr("class","seled");
+		$.post("domain.php",{hide:"4",type:98},
 		function(mainfile){
-			$("#alllist").html(mainfile);
+			$("#share").css("display","block");
+			$("#sharelist").html(mainfile);
 		},"text");
 	})
 	
 	$("#recycle").click(function(){
+		switch(location.hash)
+		{
+			case "#all":
+			$("#all").css("display","none");
+			break;
+			case "#doc":
+			$("#doc").css("display","none");
+			break;
+			case "#img":
+			$("#img").css("display","none");
+			break;
+			case "#music":
+			$("#music").css("display","none");
+			break;
+			case "#video":
+			$("#video").css("display","none");
+			break;
+			case "#exe":
+			$("#exe").css("display","none");
+			break;
+			case "#zip":
+			$("#zip").css("display","none");
+			break;
+			case "#bt":
+			$("#bt").css("display","none");
+			break;
+			case "#other":
+			$("#other").css("display","none");
+			break;
+			case "#share":
+			$("#share").css("display","none");
+			break;
+			default:
+			$("#all").css("display","none");
+			break;
+		}
+		location.hash="#recycle";
 		$(".seled").removeAttr("class");
 		$(this).attr("class","seled");
+		$.post("domain.php",{hide:"4",type:97},
 		function(mainfile){
-			$("#alllist").html(mainfile);
+			$("#recyclepage").css("display","block");
+			$("#recyclelist").html(mainfile);
 		},"text");
 	})
 	
 	$("#upbutton").click(function(){
 		$("#upinput").trigger("click");
 	});
+	
+	switch(location.hash)
+	{
+		case "#all":
+		$("#selall").trigger("click");
+		break;
+		case "#doc":
+		$("#seldoc").trigger("click");
+		break;
+		case "#img":
+		$("#selimg").trigger("click");
+		break;
+		case "#music":
+		$("#selmusic").trigger("click");
+		break;
+		case "#video":
+		$("#selvideo").trigger("click");
+		break;
+		case "#exe":
+		$("#selexe").trigger("click");
+		break;
+		case "#zip":
+		$("#selzip").trigger("click");
+		break;
+		case "#bt":
+		$("#selbt").trigger("click");
+		break;
+		case "#other":
+		$("#selother").trigger("click");
+		break;
+		case "#share":
+		$("#sharetxt").trigger("click");
+		break;
+		case "#recycle":
+		$("#recycle").trigger("click");
+		break;
+		default:
+		$(".seled").removeAttr("class");
+		$("#selall").attr("class","seled");
+		break;
+	}
 	
 	$("#upinput").change(function(){
 		if(!$("#upinput").val())
@@ -158,7 +683,7 @@ $(document).ready(function(){
 				else
 				{
 					hash=c.finalize().toString();
-					$.post("dohash.php",{hide:"4",hash:hash,filename:file.name},
+					$.post("dohash.php",{hide:"4",hash:hash,filename:file.name,filetype:file.type},
 					function(data){
 						if(data!="1")
 						{
@@ -178,7 +703,7 @@ $(document).ready(function(){
 									contentType: false,
 									processData: false,
 									success:function(data1){
-										if(data1=="1")
+										if(data1=="0")
 										{
 											window.location.reload(true);
 										}
@@ -204,6 +729,3 @@ $(document).ready(function(){
 		}
 	});
 });
-function downloadFile(url){
-	$("#downloadiframe").attr("src",url);
-}

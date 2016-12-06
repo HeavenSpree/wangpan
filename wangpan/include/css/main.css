@@ -20,7 +20,7 @@ body
 	left: 0px;
 }
 
-#main
+.main
 {
 	position: absolute;
 	top: 60px;
@@ -35,6 +35,15 @@ body
 	list-style-type: none;
 }
 
+#headimg
+{
+	width: 100px;
+	height: 60px;
+	position: absolute;
+	right: 0;
+	top: 0;
+}
+
 #headimg img
 {
 	float: right;
@@ -47,11 +56,41 @@ body
 #headinfo
 {
 	display: none;
+	position: absolute;
+	top: 60px;
+	right: 0px;
+	width: 100px;
+	background-color: #1d7df4;
+	color: #f4f4f4;
+	border: 1px solid #1d19ca;
+	z-index: 99;
 }
 
 #headinfo ul li
 {
 	list-style-type: none;
+	height: 30px;
+	font: 13px arial;
+	line-height: 30px;
+	margin: 0px 10px;
+}
+
+#headinfo ul li a
+{
+    text-decoration: blink;
+    color: #f4f4f4;
+}
+
+#logout
+{
+	cursor: pointer;
+}
+
+#infotext
+{
+	overflow: hidden;
+	text-overflow: ellipsis;
+	width: 80px;
 }
 
 #sidebar
@@ -108,16 +147,18 @@ body
 	font: 15px Microsoft YaHei;
 	height: 42px;
 	width: 200px;
+	cursor: pointer;
 }
 
 #sidebar ul li :hover
 {
-	background-color: #fcfcfc;
+	background-color: #72c3f4;
 }
 
 .seled
 {
-	background-color: #fcfcfc;
+	background-color: #72c3f4;
+	color: #225cf2;
 }
 
 #sidebar ul li a
@@ -153,7 +194,7 @@ body
 	position: relative;
 	height: 5px;
 	margin: 0 25px 5px;
-	background-color: #bccccf;
+	background-color: #cdebf0;
 	border: 1px solid #9cb1b8;
 }
 
@@ -191,6 +232,8 @@ body
 	display: inline;
 	float: left;
 	margin: 0 9px 0 0;
+	cursor: pointer;
+	font: 14px Microsoft YaHei;
 }
 
 #tbupload
@@ -203,7 +246,6 @@ body
 	height: 30px;
 	width: 77px;
 	border-radius: 4px;
-	font: 14px arial;
 }
 
 #tbnew
@@ -215,7 +257,6 @@ body
 	border: 1px solid #c0d9fe;
 	color: #3b8cff;
 	border-radius: 4px;
-	font: 14px arial;
 	text-align: center;
 	line-height: 30px;
 }
@@ -229,7 +270,6 @@ body
 	border: 1px solid #c0d9fe;
 	color: #3b8cff;
 	border-radius: 4px;
-	font: 14px arial;
 	text-align:center;
 	line-height: 30px;
 }
@@ -299,19 +339,32 @@ body
 	height: 36px;
 }
 
-#crumbpath
+.crumbpath
 {
 	display: block;
 	height: 36px;
 	margin-left: 20px;
+	font: 14px arial;
+	color: #3b8cff;
 }
 
-#path
+.crumbpath :hover
 {
-	font: 14px arial;
+	color: #0914d3;
+}
+
+.path
+{
+	
 	height: 36px;
 	line-height:36px;
+	cursor: pointer;
+}
+
+#last-path
+{
 	color: #7c87a5;
+	cursor: default;
 }
 
 #filelisthead
@@ -327,6 +380,7 @@ body
 {
 	color: #a8a9aa;
 	height: 36px;
+	font: 12px arial;
 	line-height: 36px;
 }
 
@@ -357,27 +411,109 @@ body
 	line-height: 45px;
 }
 
-#filelistmain
+.filelistmain
 {
 	display: block;
 	margin: 0 0 0 20px;
 	overflow-y: auto;
 }
 
-.download
+.operate
 {
 	float: right;
 	margin-right: 20px;
 }
 
+.fileicon
+{
+	display: block;
+	width: 30px;
+	height: 30px;
+	float: left;
+	margin: 8px 10px;
+}
 
+.folderico
+{
+	background: url(../img/folderico.png);
+}
 
+.txtico
+{
+	background: url(../img/txtico.png);
+}
 
+.docico
+{
+	background: url(../img/docico.png);
+}
 
+.pptico
+{
+	background: url(../img/pptico.png);
+}
 
+.xlsico
+{
+	background: url(../img/xlsico.png);
+}
 
+.pdfico
+{
+	background: url(../img/pdfico.png);
+}
 
+.codeico
+{
+	background: url(../img/codeico.png);
+}
 
+.imgico
+{
+	background: url(../img/imgico.png);
+}
 
+.audioico
+{
+	background: url(../img/audioico.png);
+}
 
+.videoico
+{
+	background: url(../img/videoico.png);
+}
 
+.zipico
+{
+	background: url(../img/zipico.png);
+}
+
+.fontico
+{
+	background: url(../img/fontico.png);
+}
+
+.exeico
+{
+	background: url(../img/exeico.png);
+}
+
+.btico
+{
+	background: url(../img/btico.png);
+}
+
+.otherico
+{
+	background: url(../img/otherico.png);
+}
+
+#newrow
+{
+	display: none;
+}
+
+.foldername
+{
+	cursor: pointer;
+}

@@ -3,17 +3,22 @@ $dir = dirname(__FILE__);
 require_once $dir."/include/lib/sqltool.php";
 header("content-type: text/html;charset=utf-8");
 session_start();
+if(empty($_SESSION['id']))
+{
+	header("location:index.php");
+}
 
 if(empty($_POST['hide'])||$_POST['hide']!='4')
 	header("location:login.php");
 else
 {
-	if(empty($hash=$_POST['hash']))
+	if(empty($_POST['hash']))
 	{
 		header("location:main.php");
 	}
 	else
 	{
+		$hash=$_POST['hash'];
 		$filetempname=$_FILES['upload_file']['tmp_name'];
 		if(is_uploaded_file($filetempname))
 		{
@@ -117,6 +122,9 @@ else
 							case 'msi':
 							$filetype=15;
 							break;
+							case 'torrent':
+							$filetype=16;
+							break;
 						}
 						if($_SESSION['usedsize']+$filesize<$_SESSION['totalsize'])
 						{
@@ -129,7 +137,7 @@ else
 							{
 								$_SESSION['usedsize']+=$filesize;
 								$sqltool->update('users',"id=$userid",'usedsize=usedsize+'.$filesize);
-								echo '1';
+								echo '0';
 							}
 						}
 						else

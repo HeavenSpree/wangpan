@@ -2,9 +2,13 @@
 $dir = dirname(__FILE__);
 require_once $dir."/include/lib/sqltool.php";
 session_start();
-if(empty($id=$_SESSION['id']))
+if(empty($_SESSION['id']))
 {
 	header("location:index.php");
+}
+else
+{
+	$id=$_SESSION['id'];
 }
 $sqltool=new sqltool();
 $row=$sqltool->select('userfile',"userid=$id AND filetype=1");

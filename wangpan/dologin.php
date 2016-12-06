@@ -4,7 +4,7 @@ require_once $dir."/include/lib/sqltool.php";
 header("content-type: text/html;charset=utf-8");
 session_start();
 
-if($_POST['hide']!='4')
+if(empty($_POST['hide'])||$_POST['hide']!='4')
 	header("location:index.php");
 else
 {
