@@ -4,11 +4,11 @@ require_once $dir."/include/lib/sqltool.php";
 header("content-type: text/html;charset=utf-8");
 session_start();
 
-if(empty($_POST['hide'])||$_POST['hide']!='4')
+if(!isset($_POST['hide'])||$_POST['hide']!='4')
 	header("location:index.php");
 else
 {
-	if(empty($_POST['checkcode']))
+	if(!isset($_POST['checkcode']))
 	{
 		echo "请填写验证码";
 	}
@@ -21,18 +21,18 @@ else
 		}
 		else
 		{
-			if(empty($_POST['email']))
+			if(!isset($_POST['email']))
 			{
 				echo "请填写邮箱";
 			}
 			else
 			{
 				$email=$_POST['email'];		//用户名
-				if(empty($_POST['password']))
+				if(!isset($_POST['password']))
 					echo "请填写密码";
 				else
 				{
-					$pw=sha1($_POST['password']);			//密码
+					$pw=sha1($_POST['password'].KEY);			//密码
 					$sqltool=new sqltool;
 					$row=$sqltool->select('users',"email='$email' OR phone='$email'");
 					$sqltool->close();

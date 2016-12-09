@@ -355,16 +355,39 @@ body
 
 .path
 {
-	
+	float: left;
 	height: 36px;
 	line-height:36px;
+	white-space: nowrap;
 	cursor: pointer;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	max-width: 98px;
+}
+
+.path-separator
+{
+	margin: 0 3px;
+	color: #b5b5b5;
+	float: left;
+	height: 36px;
+	line-height: 36px;
 }
 
 #last-path
 {
 	color: #7c87a5;
 	cursor: default;
+}
+
+.genus
+{
+	display: block;
+	height: 36px;
+	margin-left: 20px;
+	font: 14px arial;
+	line-height:36px;
+	color: #7c87a5;
 }
 
 #filelisthead
@@ -388,6 +411,16 @@ body
 {
 	float: left;
 	width: 65%;
+}
+
+.filename
+{
+	display: block;
+	float: left;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	width: 540px;
 }
 
 .column-size

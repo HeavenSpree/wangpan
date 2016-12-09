@@ -3,15 +3,15 @@ $dir = dirname(__FILE__);
 require_once $dir."/include/lib/sqltool.php";
 header("content-type: text/html;charset=utf-8");
 session_start();
-if(empty($_SESSION['id']))
+if(!isset($_SESSION['id']))
 {
 	header("location:index.php");
 }
-if(empty($_POST['hide'])||$_POST['hide']!='4')
+if(!isset($_POST['hide'])||$_POST['hide']!='4')
 	header("location:login.php");
 else
 {
-	if(empty($_POST['id']))
+	if(!isset($_POST['id']))
 	{
 		header("location:main.php");
 	}
@@ -26,15 +26,19 @@ else
 		switch($filetype)
 		{
 			case 2:
-			openfolder($id);
+			$deepid=$_POST['pathid'];
+			openfolder($id,$deepid);
 			break;
 		}
 	}
 }
 
-function openfolder($id)
+function openfolder($id,$deepid)
 {
+	$pathid=$_SESSION['pathid'];
+	$pathid[$deepid]=$id;
 	$_SESSION['parentid']=$id;
+	$_SESSION['pathid']=$pathid;
 	echo '0';
 }
 ?>

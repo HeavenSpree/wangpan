@@ -2,7 +2,7 @@
 $dir = dirname(__FILE__);
 require_once $dir."/include/lib/sqltool.php";
 session_start();
-if(!empty($_COOKIE["id"]))
+if(isset($_COOKIE["id"]))
 {
 	if($_COOKIE["wangpan"]==sha1($_SERVER['DOCUMENT_ROOT'].KEY))
 	{
@@ -25,5 +25,4 @@ if(!empty($_COOKIE["id"]))
 	}
 }
 require 'login.php';
-
 ?>

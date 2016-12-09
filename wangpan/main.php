@@ -2,7 +2,7 @@
 $dir = dirname(__FILE__);
 require_once $dir."/include/lib/sqltool.php";
 session_start();
-if(empty($_SESSION['id']))
+if(!isset($_SESSION['id']))
 {
 	header("location:index.php");
 }
@@ -11,11 +11,6 @@ else
 	$id=$_SESSION['id'];
 }
 $sqltool=new sqltool();
-if(empty($_SESSION['parentid']))
-{
-	$row=$sqltool->select('userfile',"userid=$id AND filetype=1");
-	$_SESSION['parentid']=$row[0]['id'];
-}
 ?>
 <!doctype html>
 <html>
@@ -137,7 +132,38 @@ echo $row[0]['nickname'];
 </div>
 </div>
 <div id="crumb">
-<div class="crumbpath"><span class="path" id="last-path">全部文件</span></div>
+<div class="crumbpath"><?php
+if(!isset($_SESSION['parentid']))
+{
+	$row=$sqltool->select('userfile',"userid=$id AND filetype=1");
+	$_SESSION['parentid']=$row[0]['id'];
+	$pathid=array(0 => $row[0]['id']);
+	$_SESSION['pathid']=$pathid;
+	?><span class="path" id="last-path" pathid="0">全部文件</span><?php
+}
+else
+{
+	$parentid=$_SESSION['parentid'];
+	if($parentid==2)
+	{
+		echo '<span class="path" id="last-path" pathid="0">全部文件</span>';
+	}
+	else
+	{
+	?><span class="path" pathid="0">全部文件</span><?php
+	$pathid=$_SESSION['pathid'];
+	for($i=1;$parentid!=$pathid[$i];$i++)
+	{
+		$row=$sqltool->select('userfile',"userid=$id AND id=".$pathid[$i]);
+		echo '<span class="path-separator">></span>';
+		echo '<span class="path" pathid="'.$i.'">'.$row[0]['filename'].'</span>';
+	}
+	$row=$sqltool->select('userfile',"userid=$id AND id=".$parentid);
+	echo '<span class="path-separator">></span>';
+	echo '<span class="path" id="last-path" pathid="'.$i.'">'.$row[0]['filename'].'</span>';
+	}
+}
+?></div>
 </div>
 <div id="filelist">
 <div class="" id="filelisthead">
@@ -224,10 +250,10 @@ foreach($row as $key => $value)
 		echo 'otherico';
 	}
 	?>"></span>
-	<span <?php
+	<span class="filename<?php
 	if($value['filetype']==2)
-		echo ' class="foldername"';	
-	?>><?php echo $value['filename'] ?></span>
+		echo ' foldername';	
+	?>"><?php echo $value['filename'] ?></span>
 	<?php
 	if($value['filetype']!=2)
 	{
@@ -303,8 +329,8 @@ $_SESSION['fileid']=$fileid;
 </div>
 </div>
 </div>
-<div id="crumb">
-<div class="crumbpath"><span class="path" id="last-path">文档</span></div>
+<div class="genus">
+文档
 </div>
 <div id="filelist">
 <div class="" id="filelisthead">
@@ -347,8 +373,8 @@ $(".filelistmain").css("height",height);
 </div>
 </div>
 </div>
-<div id="crumb">
-<div class="crumbpath"><span class="path" id="last-path">图片</span></div>
+<div class="genus">
+图片
 </div>
 <div id="filelist">
 <div class="" id="filelisthead">
@@ -391,8 +417,8 @@ $(".filelistmain").css("height",height);
 </div>
 </div>
 </div>
-<div id="crumb">
-<div class="crumbpath"><span class="path" id="last-path">音乐</span></div>
+<div class="genus">
+音乐
 </div>
 <div id="filelist">
 <div class="" id="filelisthead">
@@ -435,8 +461,8 @@ $(".filelistmain").css("height",height);
 </div>
 </div>
 </div>
-<div id="crumb">
-<div class="crumbpath"><span class="path" id="last-path">视频</span></div>
+<div class="genus">
+视频
 </div>
 <div id="filelist">
 <div class="" id="filelisthead">
@@ -479,8 +505,8 @@ $(".filelistmain").css("height",height);
 </div>
 </div>
 </div>
-<div id="crumb">
-<div class="crumbpath"><span class="path" id="last-path">程序</span></div>
+<div class="genus">
+程序
 </div>
 <div id="filelist">
 <div class="" id="filelisthead">
@@ -523,8 +549,8 @@ $(".filelistmain").css("height",height);
 </div>
 </div>
 </div>
-<div id="crumb">
-<div class="crumbpath"><span class="path" id="last-path">压缩包</span></div>
+<div class="genus">
+压缩包
 </div>
 <div id="filelist">
 <div class="" id="filelisthead">
@@ -567,8 +593,8 @@ $(".filelistmain").css("height",height);
 </div>
 </div>
 </div>
-<div id="crumb">
-<div class="crumbpath"><span class="path" id="last-path">种子</span></div>
+<div class="genus">
+种子
 </div>
 <div id="filelist">
 <div class="" id="filelisthead">
@@ -611,8 +637,8 @@ $(".filelistmain").css("height",height);
 </div>
 </div>
 </div>
-<div id="crumb">
-<div class="crumbpath"><span class="path" id="last-path">其他</span></div>
+<div class="genus">
+其他
 </div>
 <div id="filelist">
 <div class="" id="filelisthead">
@@ -655,8 +681,8 @@ $(".filelistmain").css("height",height);
 </div>
 </div>
 </div>
-<div id="crumb">
-<div class="crumbpath"><span class="path" id="last-path">全部分享</span></div>
+<div class="genus">
+全部分享
 </div>
 <div id="filelist">
 <div class="" id="filelisthead">
@@ -699,8 +725,8 @@ $(".filelistmain").css("height",height);
 </div>
 </div>
 </div>
-<div id="crumb">
-<div class="crumbpath"><span class="path" id="last-path">回收站</span></div>
+<div class="genus">
+回收站
 </div>
 <div id="filelist">
 <div class="" id="filelisthead">

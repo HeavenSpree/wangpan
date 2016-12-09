@@ -3,12 +3,12 @@ $dir = dirname(__FILE__);
 require_once $dir."/include/lib/sqltool.php";
 header("content-type: text/html;charset=utf-8");
 session_start();
-if(empty($_SESSION['id']))
+if(!isset($_SESSION['id']))
 {
 	header("location:index.php");
 }
 
-if(empty($_POST['hide'])||$_POST['hide']!='4')
+if(!isset($_POST['hide'])||$_POST['hide']!='4')
 	header("location:login.php");
 else
 {

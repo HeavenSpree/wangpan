@@ -13,7 +13,7 @@
 <div class="register">
 <?php
 $register='email';
-if(!empty($_GET['type']))
+if(isset($_GET['type']))
 $register=$_GET['type'];
 if($register=='email')
 {

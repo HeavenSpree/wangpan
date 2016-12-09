@@ -15,11 +15,33 @@ $(document).ready(function(){
 		},"text");
 	});
 	
-	$(document.body).on('click',".foldername",function(){
-		$.post("openfile.php",{hide:"4",id:$(this).parents(".row").attr("listid")},
+	$(document.body).on('click',".path",function(){
+		$.post("dopath.php",{hide:"4",id:$(this).attr("pathid")},
 		function(data){
 			if(data=='0')
-				window.location.reload(true);
+			$.post("domain.php",{hide:"4",type:0},
+			function(mainfile){
+				$("#alllist").html(mainfile);
+			},"text");
+		},"text");
+		$(this).nextAll().remove();
+		$(this).attr("id","last-path");
+	});
+	
+	$(document.body).on('click',".foldername",function(){
+		var foldername=$(this).text();
+		var count=$("#last-path").attr("pathid");
+		count++;
+		$("#last-path").removeAttr("id");
+		$(".crumbpath").append("<span class='path-separator'>></span>");
+		$(".crumbpath").append("<span class='path' id='last-path' pathid="+count+">"+foldername+"</span>");
+		$.post("openfile.php",{hide:"4",id:$(this).parents(".row").attr("listid"),pathid:count},
+		function(data){
+			if(data=='0')
+				$.post("domain.php",{hide:"4",type:0},
+				function(mainfile){
+					$("#alllist").html(mainfile);
+				},"text");
 		},"text");
 	});
 	
@@ -36,7 +58,10 @@ $(document).ready(function(){
 		$.post("dohash.php",{hide:"4",hash:"SYSTEM_FILE",filename:$(this).val(),filetype:"folder"},
 		function(data){
 			if(data=='1')
-				window.location.reload(true);
+				$.post("domain.php",{hide:"4",type:0},
+				function(mainfile){
+					$("#alllist").html(mainfile);
+				},"text");
 		},"text");
 	});
 	
@@ -49,7 +74,10 @@ $(document).ready(function(){
 		$.post("delete.php",{hide:"4",id:$(this).parents(".row").attr("listid")},
 		function(data){
 			if(data=='0')
-				window.location.reload(true);
+				$.post("domain.php",{hide:"4",type:0},
+				function(mainfile){
+					$("#alllist").html(mainfile);
+				},"text");
 		},"text");
 	});
 	
@@ -705,7 +733,10 @@ $(document).ready(function(){
 									success:function(data1){
 										if(data1=="0")
 										{
-											window.location.reload(true);
+											$.post("domain.php",{hide:"4",type:0},
+											function(mainfile){
+												$("#alllist").html(mainfile);
+											},"text");
 										}
 										else
 										{
@@ -721,7 +752,10 @@ $(document).ready(function(){
 						}
 						else
 						{
-							window.location.reload(true);
+							$.post("domain.php",{hide:"4",type:0},
+							function(mainfile){
+								$("#alllist").html(mainfile);
+							},"text");
 						}
 					},"text");
 				}

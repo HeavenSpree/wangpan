@@ -2,7 +2,7 @@
 $dir = dirname(__FILE__);
 require_once $dir."/include/lib/sqltool.php";
 session_start();
-if(empty($_SESSION['id']))
+if(!isset($_SESSION['id']))
 {
 	header("location:index.php");
 }
@@ -10,7 +10,7 @@ else
 {
 	$id=$_SESSION['id'];
 }
-if(empty($_POST['hide'])||$_POST['hide']!='4')
+if(!isset($_POST['hide'])||$_POST['hide']!='4')
 	header("location:index.php");
 else
 {
@@ -112,10 +112,10 @@ else
 			echo 'otherico';
 		}
 		?>"></span>
-		<span <?php
+		<span class="filename<?php
 		if($value['filetype']==2)
-			echo ' class="foldername"';
-		?>><?php echo $value['filename'] ?></span>
+			echo ' foldername';
+		?>"><?php echo $value['filename'] ?></span>
 		<?php
 		if($value['filetype']!=2)
 		{
