@@ -37,10 +37,10 @@ else
 					$row=$sqltool->select('users',"email='$email'");
 					if(empty($row))
 					{
-						$iniuser=$sqltool->insert('users',"'','$email','$pw','$email','',NOW(),$totalsize,0");
+						$iniuser=$sqltool->insert('users',"NULL,'$email','$pw','$email',NULL,NOW(),$totalsize,0");
 						if($iniuser!=-1)
 						{
-							$iniuserfile=$sqltool->insert('userfile',"'',$iniuser,1,1,'SYSTEM_DRIVER',1,NOW(),0,0");
+							$iniuserfile=$sqltool->insert('userfile',"NULL,$iniuser,1,1,'SYSTEM_DRIVER',1,NOW(),0,0");
 							if($iniuserfile!=-1)
 							{
 								echo '0';

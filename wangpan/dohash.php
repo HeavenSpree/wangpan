@@ -118,7 +118,7 @@ else
 				//$existrow=$sqltool->select('userfile',"userid=$userid AND parentid=".$_SESSION['parentid']." AND filename='$filename'");
 				//if(!empty($existrow))
 					//$filename.=' - 副本';			//如果有重复文件这重命名文件
-				$successrow=$sqltool->insert('userfile',"'',$userid,".$_SESSION['parentid'].','.$row[0]['id'].",'$filename',$filetype,NOW(),0,0");
+				$successrow=$sqltool->insert('userfile',"NULL,$userid,".$_SESSION['parentid'].','.$row[0]['id'].",'$filename',$filetype,NOW(),0,0");
 				if($successrow!=-1)
 				{
 					$_SESSION['usedsize']+=$filesize;

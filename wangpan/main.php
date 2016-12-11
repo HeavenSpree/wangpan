@@ -30,7 +30,6 @@ $sqltool=new sqltool();
 <li><a id="wangpan" href="main.php"></a></li>
 <li><a id="fenxiang" href=""></a></li>
 <li><a id="gongxiang" href=""></a></li>
-<li><a id="about" href="about.php"></a></li>
 </ul>
 <div id="headbarr">
 <div id="headimg">

@@ -28,7 +28,7 @@
 	<input type="checkbox" class="dxk" id="dxk"><span>记住密码</span>
 	<input type="submit" id="loginbutton" value="登录">
 	</p>
-	<span><a href="register.php">没有账号？赶快去注册一个。></a></span>
+	<span class="reg"><a href="register.php">没有账号？赶快去注册一个></a></span>
   </div>
  </body>
 </html>

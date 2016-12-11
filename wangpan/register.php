@@ -9,8 +9,8 @@
 <script src="include/js/register.js"></script>
 </head>
 <body>
-<h1>注册</h1>
 <div class="register">
+<h1>注册</h1>
 <?php
 $register='email';
 if(isset($_GET['type']))
@@ -39,7 +39,8 @@ elseif($register=='phone')
 }
 ?>
 <p class="register-main">
-<input type="submit" class="inputbox" id="registerbutton" value="注册">
+<input type="submit" id="registerbutton" value="注册">
+<a class="login" href="login.php">登录</a>
 </p>
 </div>
 </body>

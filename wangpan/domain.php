@@ -1,6 +1,7 @@
 <?php
 $dir = dirname(__FILE__);
 require_once $dir."/include/lib/sqltool.php";
+header("content-type: text/html;charset=utf-8");
 session_start();
 if(!isset($_SESSION['id']))
 {

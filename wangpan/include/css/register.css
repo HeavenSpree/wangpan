@@ -1,8 +1,8 @@
 .register
 {
 	width: 350px;
-	height: 380px;
-	margin: 120px auto;
+	height: 320px;
+	margin: 150px auto;
 	border-radius: 5px;
 	box-shadow: 0px 0px 2px 3px #DDD;
 }
@@ -57,11 +57,40 @@
 	background-color: #00A7DE;
 	border: 1px solid #0381AA;
 	color: #fff;
-	margin-top: 3px;
-	margin-left: 60px;
+	font-size: 14px;
 }
 
 #registerbutton:hover
 {
 	background-color: #00bee7;
+	cursor: pointer;
+}
+
+.register h1
+{
+	padding-top: 10px;
+	text-align: center;
+}
+
+.login
+{
+	display: inline-block;
+	text-align: center;
+	height: 32px;
+	width: 138px;
+	line-height: 34px;
+	border: 1px solid #a8a8a8;
+	border-radius:4px;
+	position: relative;
+	top: 1px;
+	margin-left: 15px;
+	font-size: 14px;
+	text-decoration: none;
+	color: #000;
+}
+
+.login:hover
+{
+	background-color: #f0f0f0;
+	cursor: pointer;
 }

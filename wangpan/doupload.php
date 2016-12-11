@@ -37,7 +37,7 @@ else
 				{
 					$filesize=$_FILES['upload_file']['size'];
 					$sqltool=new sqltool();
-					$fileid=$sqltool->insert('file',"'','$hash',".$filesize);
+					$fileid=$sqltool->insert('file',"NULL,'$hash',".$filesize);
 					if($fileid!=-1)
 					{
 						$filename=$_FILES['upload_file']['name'];
@@ -132,7 +132,7 @@ else
 							//$existrow=$sqltool->select('userfile',"userid=$userid AND parentid=".$_SESSION['parentid']." AND filename='$filename'");
 							//if(!empty($existrow))
 								//$filename.='('.count($existrow).')';			//如果有重复文件这重命名文件
-							$successrow=$sqltool->insert('userfile',"'',$userid,".$_SESSION['parentid'].",$fileid,'$filename',$filetype,NOW(),0,0");
+							$successrow=$sqltool->insert('userfile',"NULL,$userid,".$_SESSION['parentid'].",$fileid,'$filename',$filetype,NOW(),0,0");
 							if($successrow!=-1)
 							{
 								$_SESSION['usedsize']+=$filesize;
