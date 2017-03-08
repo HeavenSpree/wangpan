@@ -8,7 +8,7 @@ if(!isset($_POST['hide'])||$_POST['hide']!='4')
 	header("location:index.php");
 else
 {
-	if(!isset($_POST['checkcode']))
+	if(!isset($_POST['checkcode'])||$_POST['checkcode']==NULL)
 	{
 		echo "请填写验证码";
 	}
@@ -21,18 +21,40 @@ else
 		}
 		else
 		{
-			if(!isset($_POST['email']))
+			if(!isset($_POST['email'])||$_POST['email']==NULL)
 			{
 				echo "请填写邮箱";
 			}
 			else
 			{
 				$email=$_POST['email'];		//用户名
-				if(!isset($_POST['password']))
+				if(!isset($_POST['password'])||$_POST['password']==NULL)
 					echo "请填写密码";
 				else
 				{
-					$pw=sha1($_POST['password'].KEY);			//密码
+					$password=$_POST['password'];
+					$reg='/^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/';
+					if(!preg_match($reg,$email))
+					{
+						echo '邮箱格式不正确';
+						exit(0);
+					}
+					
+					$reg='/^.{6,20}$/';
+					if(!preg_match($reg,$password))
+					{
+						echo '至少6个字符，最多20个字符';
+						exit(0);
+					}
+					
+					$reg='/\w+\d+\W+/';
+					if(!preg_match($reg,$password))
+					{
+						echo '必须包含字母、数字、特殊字符';
+						exit(0);
+					}
+					
+					$pw=sha1($password.KEY);			//密码
 					$sqltool=new sqltool;
 					$row=$sqltool->select('users',"email='$email'");
 					if(empty($row))

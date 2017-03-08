@@ -17,12 +17,12 @@ else
 	$fileid=$row[0]['fileid'];
 	$row=$sqltool->select('file',"id=$fileid");
 	$filesize=$row[0]['size'];
-	$successrow=$sqltool->update('userfile',"id=$id",'state=1');
+	$successrow=$sqltool->update('userfile',"id=$id",'state=0');
 	if($successrow!=-1)
 	{
 		
-		$_SESSION['usedsize']-=$filesize;
-		$sqltool->update('users',"id=$userid",'usedsize=usedsize-'.$filesize);
+		$_SESSION['usedsize']+=$filesize;
+		$sqltool->update('users',"id=$userid",'usedsize=usedsize+'.$filesize);
 		echo '0';
 	}
 }

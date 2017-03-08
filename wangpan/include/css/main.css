@@ -7,17 +7,17 @@ body
 {
 	width: 100%;
 	height: 60px;
-	background-color: #1d7df4;
+	background-color: #1D7DF4;
 }
 
 #sidebar
 {
-	width: 200px;
-	background-color: #E1F4FC;
 	position: absolute;
+	width: 200px;
 	top: 60px;
 	bottom: 0px;
 	left: 0px;
+	background-color: #E1F4FC;
 }
 
 .main
@@ -37,9 +37,9 @@ body
 
 #headimg
 {
+	position: absolute;
 	width: 100px;
 	height: 60px;
-	position: absolute;
 	right: 0;
 	top: 0;
 }
@@ -55,30 +55,30 @@ body
 
 #headinfo
 {
-	display: none;
 	position: absolute;
+	z-index: 99;
+	display: none;
 	top: 60px;
 	right: 0px;
 	width: 100px;
-	background-color: #1d7df4;
-	color: #f4f4f4;
-	border: 1px solid #1d19ca;
-	z-index: 99;
+	background-color: #1D7DF4;
+	color: #F4F4F4;
+	border: 1px solid #1D19CA;
 }
 
 #headinfo ul li
 {
 	list-style-type: none;
 	height: 30px;
+	margin: 0px 10px;
 	font: 13px arial;
 	line-height: 30px;
-	margin: 0px 10px;
 }
 
 #headinfo ul li a
 {
     text-decoration: none;
-    color: #f4f4f4;
+    color: #F4F4F4;
 }
 
 #logout
@@ -104,11 +104,11 @@ body
 	display: block;
 	height: 60px;
 	width: 80px;
-	background:url(http://localhost/include/img/headbar1.png);
+	background:url(../img/headbar1.png);
 	border-left: 1px solid;
 	border-right: 1px solid;
-	background-color: #101cec;
-	border-color: #1d19ca;
+	background-color: #101CEC;
+	border-color: #1D19CA;
 }
 
 #fenxiang
@@ -116,7 +116,7 @@ body
 	display: block;
 	height: 60px;
 	width: 86px;
-	background:url(http://localhost/include/img/headbar2.png);
+	background:url(../img/headbar2.png);
 }
 
 #gongxiang
@@ -124,7 +124,7 @@ body
 	display: block;
 	height: 60px;
 	width: 100px;
-	background:url(http://localhost/include/img/headbar3.png);
+	background:url(../img/headbar3.png);
 }
 
 #sidebar ul
@@ -144,13 +144,13 @@ body
 
 #sidebar ul li :hover
 {
-	background-color: #72c3f4;
+	background-color: #72C3F4;
 }
 
 .seled
 {
-	background-color: #72c3f4;
-	color: #225cf2;
+	background-color: #72C3F4;
+	color: #225CF2;
 }
 
 #sidebar ul li a
@@ -162,14 +162,14 @@ body
 
 #recycle
 {
-	border-bottom: 1px solid #c7d7e1;
+	border-bottom: 1px solid #C7D7E1;
 }
 
 #sharetxt
 {
 	border-top: 1px solid;
 	border-bottom: 1px solid;
-	border-color: #c7d7e1;
+	border-color: #C7D7E1;
 }
 
 #space
@@ -186,8 +186,8 @@ body
 	position: relative;
 	height: 5px;
 	margin: 0 25px 5px;
-	background-color: #cdebf0;
-	border: 1px solid #9cb1b8;
+	background-color: #CDEBF0;
+	border: 1px solid #9CB1B8;
 }
 
 #used
@@ -230,8 +230,8 @@ body
 
 #tbupload
 {
-	border: 1px solid #3984e5;
-	background-color: #3e94fe;
+	border: 1px solid #3984E5;
+	background-color: #3E94FE;
 	color: #fff;
 	display: block;
 	float: left;
@@ -246,7 +246,7 @@ body
 	height: 30px;
 	width: 100px;
 	float: left;
-	border: 1px solid #c0d9fe;
+	border: 1px solid #C0D9FE;
 	color: #3b8cff;
 	border-radius: 4px;
 	text-align: center;
@@ -259,7 +259,7 @@ body
 	height: 30px;
 	width: 90px;
 	float: left;
-	border: 1px solid #c0d9fe;
+	border: 1px solid #C0D9FE;
 	color: #3b8cff;
 	border-radius: 4px;
 	text-align:center;
@@ -301,7 +301,7 @@ body
 	float: right;
 	width: 180px;
 	line-height: 30px;
-	border: 1px solid #a9bbcc;
+	border: 1px solid #A9BBCC;
 }
 
 #searchimg
@@ -337,12 +337,12 @@ body
 	height: 36px;
 	margin-left: 20px;
 	font: 14px arial;
-	color: #3b8cff;
+	color: #3B8CFF;
 }
 
 .crumbpath :hover
 {
-	color: #0914d3;
+	color: #0914D3;
 }
 
 .path
@@ -360,7 +360,7 @@ body
 .path-separator
 {
 	margin: 0 3px;
-	color: #b5b5b5;
+	color: #B5B5B5;
 	float: left;
 	height: 36px;
 	line-height: 36px;
@@ -368,7 +368,7 @@ body
 
 #last-path
 {
-	color: #7c87a5;
+	color: #7C87A5;
 	cursor: default;
 }
 
@@ -379,21 +379,21 @@ body
 	margin-left: 20px;
 	font: 14px arial;
 	line-height:36px;
-	color: #7c87a5;
+	color: #7C87A5;
 }
 
 #filelisthead
 {
 	display: block;
 	height: 36px;
-	background-color: #f3f6fc;
-	border-bottom: 1px solid #e5e5e5;
+	background-color: #F3F6FC;
+	border-bottom: 1px solid #E5E5E5;
 	margin: 0 0 0 20px;
 }
 
 .column
 {
-	color: #a8a9aa;
+	color: #A8A9AA;
 	height: 36px;
 	font: 12px arial;
 	line-height: 36px;
@@ -430,7 +430,7 @@ body
 .row
 {
 	height: 45px;
-	border-bottom: 1px solid #e5e5e5;
+	border-bottom: 1px solid #E5E5E5;
 	list-style-type: none;
 	font: 12px arial;
 	line-height: 45px;
@@ -541,4 +541,151 @@ body
 .foldername
 {
 	cursor: pointer;
+}
+
+.dialog
+{
+	position: absolute;
+	top: 150px;
+	left:383px;
+	display:none;
+	z-index:50;
+	width: 600px;
+	background-color: #FFF;
+	overflow: hidden;
+	border-radius:5px;
+}
+
+#new-dialog
+{
+	height: 350px;
+}
+
+#link-dialog
+{
+	height: 280px;
+}
+
+.dialog-head
+{
+	height: 40px;
+	background-color: #DDF6FF;
+	border-bottom: 1px solid #68CBEF;
+}
+
+.dialog-head-left
+{
+	position: absolute;
+	left: 15px;
+	font: 15px Microsoft YaHei;
+	line-height: 40px;
+}
+
+.dialog-head-right
+{
+	position: absolute;
+	top: 12px;
+	float: right;
+	right: 10px;
+	cursor: pointer;
+}
+
+.buttondiv
+{
+	height: 32px;
+	padding: 15px 10px;
+	border-bottom: 1px solid #DDD;
+}
+
+#newbt
+{
+	display: block;
+	height: 30px;
+	width: 95px;
+	float: left;
+	border: 1px solid #C0D9FE;
+	color: #3B8CFF;
+	border-radius: 4px;
+	text-align:center;
+	line-height: 30px;
+}
+
+#newlink
+{
+	display: block;
+	height: 30px;
+	width: 115px;
+	float: left;
+	border: 1px solid #C0D9FE;
+	color: #3B8CFF;
+	border-radius: 4px;
+	text-align:center;
+	line-height: 30px;
+}
+
+.dialog-column-name
+{
+	float: left;
+	width: 55%;
+	margin-left: 10px;
+}
+
+.dialog-column-size
+{
+	float: left;
+	width: 15%;
+}
+
+.dialog-column-status
+{
+	float: left;
+	width: 15%;
+}
+
+.dialog-column-handler
+{
+	float: left;
+	width: 10%;
+}
+
+#linktext
+{
+	margin: 30px 20px 15px;
+	font: 15px Microsoft YaHei;
+}
+
+.inputbox
+{
+	border: 1px solid #DDD;
+	width: 490px;
+	height: 38px;
+	font-size: 14px;
+	padding-left: 8px;
+	margin: 15px 50px;
+	border-radius:4px;
+}
+
+#linkstart
+{
+	width: 140px;
+	height: 34px;
+	float: right;
+	margin: 20px 50px 0 0;
+	border-radius:4px;
+	background-color: #00A7DE;
+	border: 1px solid #0381AA;
+	color: #FFF;
+	cursor: pointer;
+}
+
+#errormsg
+{
+	display: block;
+	float: left;
+	line-height: 30px;
+	margin: 10px 0 0 50px;
+	width: 310px;
+	height: 30px;
+	color: #F66495;
+	font: 15px Microsoft YaHei;
 }

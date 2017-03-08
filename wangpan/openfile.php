@@ -11,7 +11,7 @@ if(!isset($_POST['hide'])||$_POST['hide']!='4')
 	header("location:login.php");
 else
 {
-	if(!isset($_POST['id']))
+	if(!isset($_POST['id'])||$_POST['id']==NULL)
 	{
 		header("location:main.php");
 	}

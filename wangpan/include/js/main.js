@@ -46,7 +46,8 @@ $(document).ready(function(){
 	});
 	
 	$("#tbbt").click(function(){
-		alert("此功能还没有完成");
+		$(".shade").css("display","block");
+		$("#new-dialog").css("display","block");
 	});
 	
 	$("#tbnew").click(function(){
@@ -70,14 +71,59 @@ $(document).ready(function(){
 		$("#downloadiframe").attr("src",url);
 	});
 	
+	$(document.body).on('click',".res",function(){
+		$.post("restore.php",{hide:"4",id:$(this).parents(".row").attr("listid")},
+		function(data){
+			if(data=='0')
+				$.post("domain.php",{hide:"4",type:97},
+				function(mainfile){
+					$("#recyclelist").html(mainfile);
+				},"text");
+		},"text");
+	});
+	
 	$(document.body).on('click',".del",function(){
 		$.post("delete.php",{hide:"4",id:$(this).parents(".row").attr("listid")},
 		function(data){
 			if(data=='0')
-				$.post("domain.php",{hide:"4",type:0},
-				function(mainfile){
-					$("#alllist").html(mainfile);
-				},"text");
+			{
+				switch(location.hash)
+				{
+					case "#all":
+					$("#selall").trigger("click");
+					break;
+					case "#doc":
+					$("#seldoc").trigger("click");
+					break;
+					case "#img":
+					$("#selimg").trigger("click");
+					break;
+					case "#music":
+					$("#selmusic").trigger("click");
+					break;
+					case "#video":
+					$("#selvideo").trigger("click");
+					break;
+					case "#exe":
+					$("#selexe").trigger("click");
+					break;
+					case "#zip":
+					$("#selzip").trigger("click");
+					break;
+					case "#bt":
+					$("#selbt").trigger("click");
+					break;
+					case "#other":
+					$("#selother").trigger("click");
+					break;
+					case "#share":
+					$("#sharetxt").trigger("click");
+					break;
+					case "#recycle":
+					$("#recycle").trigger("click");
+					break;
+				}
+			}
 		},"text");
 	});
 	
@@ -761,5 +807,37 @@ $(document).ready(function(){
 				}
 			};
 		}
+	});
+	
+	$("#new-x").click(function(){
+		$(".shade").css("display","none");
+		$("#new-dialog").css("display","none");
+		$.post("domain.php",{hide:"4",type:0},
+		function(mainfile){
+			$("#alllist").html(mainfile);
+		},"text");
+	});
+	
+	$("#newlink").click(function(){
+		$("#new-dialog").css("display","none");
+		$("#link-dialog").css("display","block");
+	});
+	
+	$("#link-x").click(function(){
+		$(".shade").css("display","none");
+		$("#link-dialog").css("display","none");
+	});
+	
+	$("#linkstart").click(function(){
+		if($("#linkinput").val()=="")
+		{
+			$("#errormsg").html("请输入下载链接");
+			return;
+		}
+		
+		$.post("dodownload.php",{hide:"4",downloadurl: decodeURI($("#linkinput").val())},
+		function(msg){
+			$("#errormsg").html(msg);
+		},"text");
 	});
 });

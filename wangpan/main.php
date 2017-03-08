@@ -132,9 +132,9 @@ echo $row[0]['nickname'];
 </div>
 <div id="crumb">
 <div class="crumbpath"><?php
+$row=$sqltool->select('userfile',"userid=$id AND filetype=1");
 if(!isset($_SESSION['parentid']))
 {
-	$row=$sqltool->select('userfile',"userid=$id AND filetype=1");
 	$_SESSION['parentid']=$row[0]['id'];
 	$pathid=array(0 => $row[0]['id']);
 	$_SESSION['pathid']=$pathid;
@@ -143,7 +143,7 @@ if(!isset($_SESSION['parentid']))
 else
 {
 	$parentid=$_SESSION['parentid'];
-	if($parentid==2)
+	if($parentid==$row[0]['id'])
 	{
 		echo '<span class="path" id="last-path" pathid="0">全部文件</span>';
 	}
@@ -314,9 +314,6 @@ $_SESSION['fileid']=$fileid;
 <span id="tbupload"><input type="file" id="upinput"><a id="upbutton">上传</a></span>
 </div>
 <div class="item">
-<span id="tbnew">新建文件夹</span>
-</div>
-<div class="item">
 <span id="tbbt">离线下载</span>
 </div>
 </div>
@@ -356,9 +353,6 @@ $(".filelistmain").css("height",height);
 <div>
 <div class="item">
 <span id="tbupload"><input type="file" id="upinput"><a id="upbutton">上传</a></span>
-</div>
-<div class="item">
-<span id="tbnew">新建文件夹</span>
 </div>
 <div class="item">
 <span id="tbbt">离线下载</span>
@@ -402,9 +396,6 @@ $(".filelistmain").css("height",height);
 <span id="tbupload"><input type="file" id="upinput"><a id="upbutton">上传</a></span>
 </div>
 <div class="item">
-<span id="tbnew">新建文件夹</span>
-</div>
-<div class="item">
 <span id="tbbt">离线下载</span>
 </div>
 </div>
@@ -444,9 +435,6 @@ $(".filelistmain").css("height",height);
 <div>
 <div class="item">
 <span id="tbupload"><input type="file" id="upinput"><a id="upbutton">上传</a></span>
-</div>
-<div class="item">
-<span id="tbnew">新建文件夹</span>
 </div>
 <div class="item">
 <span id="tbbt">离线下载</span>
@@ -490,9 +478,6 @@ $(".filelistmain").css("height",height);
 <span id="tbupload"><input type="file" id="upinput"><a id="upbutton">上传</a></span>
 </div>
 <div class="item">
-<span id="tbnew">新建文件夹</span>
-</div>
-<div class="item">
 <span id="tbbt">离线下载</span>
 </div>
 </div>
@@ -532,9 +517,6 @@ $(".filelistmain").css("height",height);
 <div>
 <div class="item">
 <span id="tbupload"><input type="file" id="upinput"><a id="upbutton">上传</a></span>
-</div>
-<div class="item">
-<span id="tbnew">新建文件夹</span>
 </div>
 <div class="item">
 <span id="tbbt">离线下载</span>
@@ -578,9 +560,6 @@ $(".filelistmain").css("height",height);
 <span id="tbupload"><input type="file" id="upinput"><a id="upbutton">上传</a></span>
 </div>
 <div class="item">
-<span id="tbnew">新建文件夹</span>
-</div>
-<div class="item">
 <span id="tbbt">离线下载</span>
 </div>
 </div>
@@ -622,9 +601,6 @@ $(".filelistmain").css("height",height);
 <span id="tbupload"><input type="file" id="upinput"><a id="upbutton">上传</a></span>
 </div>
 <div class="item">
-<span id="tbnew">新建文件夹</span>
-</div>
-<div class="item">
 <span id="tbbt">离线下载</span>
 </div>
 </div>
@@ -659,27 +635,6 @@ $(".filelistmain").css("height",height);
 </div>
 </div>
 <div id="share" style="display: none;">
-<div id="toolbar">
-<div id="toolbar-left">
-<div>
-<div class="item">
-<span id="tbupload"><input type="file" id="upinput"><a id="upbutton">上传</a></span>
-</div>
-<div class="item">
-<span id="tbnew">新建文件夹</span>
-</div>
-<div class="item">
-<span id="tbbt">离线下载</span>
-</div>
-</div>
-</div>
-<div id="toolbar-right">
-<div id="search">
-<span id="searchimg"><img src="include/img/ico.png"></span>
-<input id="searchinput" type="text" placeholder="搜索文件">
-</div>
-</div>
-</div>
 <div class="genus">
 全部分享
 </div>
@@ -703,27 +658,6 @@ $(".filelistmain").css("height",height);
 </div>
 </div>
 <div id="recyclepage" style="display: none;">
-<div id="toolbar">
-<div id="toolbar-left">
-<div>
-<div class="item">
-<span id="tbupload"><input type="file" id="upinput"><a id="upbutton">上传</a></span>
-</div>
-<div class="item">
-<span id="tbnew">新建文件夹</span>
-</div>
-<div class="item">
-<span id="tbbt">离线下载</span>
-</div>
-</div>
-</div>
-<div id="toolbar-right">
-<div id="search">
-<span id="searchimg"><img src="include/img/ico.png"></span>
-<input id="searchinput" type="text" placeholder="搜索文件">
-</div>
-</div>
-</div>
 <div class="genus">
 回收站
 </div>
@@ -745,6 +679,39 @@ $(".filelistmain").css("height",height);
 </div>
 </div>
 </div>
+</div>
+</div>
+<div class="shade" style="position: fixed; left: 0px; top: 0px; z-index: 50; opacity: 0.5; width: 100%; height: 100%; display: none; background: rgb(0, 0, 0);">
+</div>
+<div class="dialog" id="new-dialog">
+<div class="dialog-head">
+<span class="dialog-head-left">离线下载列表</span>
+<span class="dialog-head-right" id="new-x"><img src="/include/img/x.png"></span>
+</div>
+<div class="dialog-body">
+<div class="buttondiv">
+<div class="item"><span id="newbt">新建bt下载</span></div>
+<div class="item"><span id="newlink">新建链接下载</span></div>
+</div>
+<div class="dialog-column">
+<div class="column dialog-column-name">文件名</div>
+<div class="column dialog-column-size">大小</div>
+<div class="column dialog-column-status">状态</div>
+<div class="column dialog-column-handler">操作</div>
+</div>
+<div></div>
+</div>
+</div>
+<div class="dialog" id="link-dialog">
+<div class="dialog-head">
+<span class="dialog-head-left">新建链接任务</span>
+<span class="dialog-head-right" id="link-x"><img src="/include/img/x.png"></span>
+</div>
+<div class="dialog-body">
+<div id="linktext">要下载文件的链接：</div>
+<input class="inputbox" id="linkinput" type="text" placeholder="http/https链接">
+<div id="errormsg"></div>
+<input id="linkstart" type="submit" value="开始">
 </div>
 </div>
 <iframe id="downloadiframe"></iframe>

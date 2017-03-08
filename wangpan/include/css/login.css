@@ -38,12 +38,11 @@ form
 	display: block;
 	width: 310px;
 	height: 30px;
-	color: #f66495;
+	color: #F66495;
 	font-size: 13px;
 	line-height: 30px;
 	margin: 0 auto 0;
 }
-
 
 .login-main
 {
@@ -54,7 +53,7 @@ form
 
 .inputbox
 {
-	border: 1px solid #ddd;
+	border: 1px solid #DDD;
 	width: 300px;
 	height: 38px;
 	font-size: 14px;
@@ -96,18 +95,18 @@ form
 {
 	width: 140px;
 	height: 34px;
+	margin-top: 3px;
+	margin-left: 90px;
 	border-radius:4px;
 	background-color: #00A7DE;
 	border: 1px solid #0381AA;
-	color: #fff;
-	margin-top: 3px;
-	margin-left: 90px;
+	color: #FFF;
 	cursor: pointer;
 }
 
 #loginbutton:hover
 {
-	background-color: #00bee7;
+	background-color: #00BEE7;
 }
 
 .reg
@@ -118,12 +117,12 @@ form
 
 .reg a
 {
-	color: #3471f4;
+	color: #3471F4;
 	font: 14px Microsoft YaHei;
 	text-decoration: none;
 }
 
 .reg a:hover
 {
-	color: #ef507a;
+	color: #EF507A;
 }

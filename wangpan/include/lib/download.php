@@ -4,19 +4,82 @@ require_once $dir."/sqltool.php";
 session_start();
 function dowmload($filepath,$filename,$filesize)
 {
-	$fp=fopen($filepath,"rb");
+	
 	header("Content-type: application/octet-stream");
-	header("Accept-Ranges: bytes");
-	header("Accept-Length: $filesize");
 	header("Content-Disposition: attachment; filename=$filename");
+	
+	$totalsize=$filesize-1;
+	
+	if(isset($_SERVER['HTTP_RANGE']))
+	{
+		
+		list($a,$range)=explode("=",$_SERVER['HTTP_RANGE']);
+		list($range,$end)=explode("-",$range);
+		if($range>$totalsize)
+		{
+			exit();
+		}
+		
+		if($end>$totalsize)
+		{
+			$end=$totalsize;
+		}
+		
+		if($end==NULL)
+		{
+			$newsize=$totalsize-$range;
+			$end=$totalsize;
+		}
+		elseif($range==NULL)
+		{
+			$newsize=$end;
+			$range=$totalsize-$end;
+		}
+		else
+		{
+			$newsize=$end-$range;
+		}
+		
+		header("HTTP/1.1 206 Partial Content");
+		header("Content-Length: $newsize");
+		header("Accept-Ranges: bytes");
+		header("Content-Range: bytes $range-$totalsize/$filesize");
+		$filecount=$range;
+	}
+	else
+	{
+		header("Content-Length: $filesize");
+		header("Accept-Ranges: bytes");
+		header("Content-Range: bytes 0-$totalsize/$filesize");
+		$filecount=0;
+		$newsize=$filesize;
+		$end=$filesize;
+		$range=0;
+	}
+	
+	if($end<$range)
+	{
+		exit(0);
+	}
+	
 	$buffersize=4194304;
-	$filecount=0;
+	
+	$fp=fopen($filepath,"rb");
+	fseek($fp,$filecount);
+	
+	if($buffersize>$newsize)
+	{
+		$buffersize=$newsize;
+	}
+	
 	while(!feof($fp) && $filecount<$filesize)
 	{
+		set_time_limit(0);
 		$buffer=fread($fp,$buffersize);
 		$filecount+=$buffersize;
 		echo $buffer;
 	}
+	
 	fclose($fp);
 }
 if(!isset($_SERVER['HTTP_REFERER']))

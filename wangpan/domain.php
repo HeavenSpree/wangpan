@@ -124,9 +124,12 @@ else
 		<span class="operate">
 		<a href="javascript:void(0);" class="del">删除</a>
 		</span>
-		<span class="operate">
-		<a href="javascript:void(0);" class="download" target="_blank" download="<?php echo $value['filename']; ?>">下载</a>
-		</span>
+		<span class="operate"><?php
+		if($type==97)
+			echo '<a href="javascript:void(0);" class="res" target="_blank">还原</a>';
+		else
+			echo '<a href="javascript:void(0);" class="download" target="_blank" download="'.$value['filename'].'">下载</a>';
+		?></span>
 			<?php
 		}
 		?>

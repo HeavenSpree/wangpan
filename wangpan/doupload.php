@@ -22,7 +22,7 @@ else
 		$filetempname=$_FILES['upload_file']['tmp_name'];
 		if(is_uploaded_file($filetempname))
 		{
-			if($hash==hash_file('sha1',$filetempname))
+			if($hash==sha1_file($filetempname))
 			{
 				$filedir='./upload_file/';
 				$hashpath=chunk_split($hash,4,'/');
@@ -37,7 +37,7 @@ else
 				{
 					$filesize=$_FILES['upload_file']['size'];
 					$sqltool=new sqltool();
-					$fileid=$sqltool->insert('file',"NULL,'$hash',".$filesize);
+					$fileid=$sqltool->insert('file',"NULL,'$hash',$filesize");
 					if($fileid!=-1)
 					{
 						$filename=$_FILES['upload_file']['name'];

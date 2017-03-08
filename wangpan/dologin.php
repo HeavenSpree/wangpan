@@ -8,7 +8,7 @@ if(!isset($_POST['hide'])||$_POST['hide']!='4')
 	header("location:index.php");
 else
 {
-	if(!isset($_POST['checkcode']))
+	if(!isset($_POST['checkcode'])||$_POST['checkcode']==NULL)
 	{
 		echo "请填写验证码";
 	}
@@ -21,14 +21,14 @@ else
 		}
 		else
 		{
-			if(!isset($_POST['email']))
+			if(!isset($_POST['email'])||$_POST['email']==NULL)
 			{
 				echo "请填写邮箱";
 			}
 			else
 			{
 				$email=$_POST['email'];		//用户名
-				if(!isset($_POST['password']))
+				if(!isset($_POST['password'])||$_POST['password']==NULL)
 					echo "请填写密码";
 				else
 				{
